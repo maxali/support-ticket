@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="Content">
+    <File Path="Content\App.css" Url="Content/App.css" ReplaceContent="TRUE" />
+    <File Path="Content\App\router.js" Url="Content/App/router.js" ReplaceContent="TRUE" />
+    <File Path="Content\App\controllers\ticket.controller.js" Url="Content/App/controllers/ticket.controller.js" ReplaceContent="TRUE" />
+    <File Path="Content\App\controllers\header.controller.js" Url="Content/App/controllers/header.controller.js" ReplaceContent="TRUE" />
+    <File Path="Content\App\templates\ticket.html" Url="Content/App/templates/ticket.html" ReplaceContent="TRUE" />
+    <File Path="Content\App\app.js" Url="Content/App/app.js" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\css\metro-icons.min.css" Url="Content/matro-ui/css/metro-icons.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\css\metro-responsive.css" Url="Content/matro-ui/css/metro-responsive.css" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\css\metro-responsive.min.css" Url="Content/matro-ui/css/metro-responsive.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\css\metro-rtl.css" Url="Content/matro-ui/css/metro-rtl.css" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\css\metro-rtl.min.css" Url="Content/matro-ui/css/metro-rtl.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\css\metro-schemes.css" Url="Content/matro-ui/css/metro-schemes.css" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\css\metro-schemes.min.css" Url="Content/matro-ui/css/metro-schemes.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\css\metro.css" Url="Content/matro-ui/css/metro.css" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\css\metro.min.css" Url="Content/matro-ui/css/metro.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\css\metro-icons.css" Url="Content/matro-ui/css/metro-icons.css" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\fonts\metro.svg" Url="Content/matro-ui/fonts/metro.svg" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\fonts\metro.ttf" Url="Content/matro-ui/fonts/metro.ttf" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\fonts\metro.woff" Url="Content/matro-ui/fonts/metro.woff" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\fonts\selection.json" Url="Content/matro-ui/fonts/selection.json" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\fonts\metro.eot" Url="Content/matro-ui/fonts/metro.eot" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\js\metro.js" Url="Content/matro-ui/js/metro.js" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\js\metro.min.js" Url="Content/matro-ui/js/metro.min.js" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\js\office-ui-components.js" Url="Content/matro-ui/js/office-ui-components.js" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\css\fabric.components.min.css" Url="Content/matro-ui/css/fabric.components.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\matro-ui\css\fabric.min.css" Url="Content/matro-ui/css/fabric.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\App\services\TicketDataService.js" Url="Content/App/services/TicketDataService.js" ReplaceContent="TRUE" />
+    <File Path="Content\App\config.js" Url="Content/App/config.js" ReplaceContent="TRUE" />
+  </Module>
+</Elements>

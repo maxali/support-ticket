@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package dslVersion="1.0.0.0" 
+        Id="83b241f2-a878-4e52-8870-316729228014" 
+        solutionId="83b241f2-a878-4e52-8870-316729228014" 
+        xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel" 
+        name="SupportTicket"
+        sharePointProductVersion="16.0">
+  <features>
+        <featureReference itemId="693b4c81-12f7-44bf-b9a5-958b14d1e42c" />
+  </features>
+</package>
