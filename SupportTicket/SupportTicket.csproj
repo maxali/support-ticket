@@ -43,11 +43,20 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Content\App\controllers\ticket.detail.controller.js" />
+    <Content Include="Content\App\controllers\ticket.detail.html" />
+    <Content Include="Content\App\services\SPHttp.js" />
     <Content Include="Content\App\services\config.service.js" />
     <None Include="Content\matro-ui\fonts\metro.eot" />
     <None Include="Content\matro-ui\fonts\metro.ttf" />
     <None Include="Content\matro-ui\fonts\metro.woff" />
     <None Include="Content\matro-ui\fonts\selection.json" />
+    <None Include="Data\Request\RequestInstance\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{13cdc874-9863-4a87-a571-e7f97e90a817}</SharePointProjectItemId>
+    </None>
+    <None Include="Data\Request\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{e59a6041-bca4-45dc-9c42-e8dde8d536b4}</SharePointProjectItemId>
+    </None>
     <None Include="packages.config" />
     <None Include="Pages\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{8f05a66d-e3a2-4719-8beb-a583034cf36c}</SharePointProjectItemId>
@@ -57,7 +66,12 @@
     <Content Include="Content\App\router.js" />
     <Content Include="Content\App\controllers\ticket.controller.js" />
     <Content Include="Content\App\config.js" />
+    <Content Include="Content\App\services\SPListService.js" />
+    <Content Include="Content\App\services\spUtilService.js" />
     <Content Include="Content\App\services\TicketDataService.js" />
+    <Content Include="Content\App\templates\ticket.detail.html" />
+    <Content Include="Content\App\templates\ticket.new.html" />
+    <Content Include="Content\index.html" />
     <Content Include="Content\matro-ui\css\fabric.components.min.css" />
     <Content Include="Content\matro-ui\css\fabric.min.css" />
     <Content Include="Content\matro-ui\css\metro-icons.css" />
@@ -74,9 +88,14 @@
     <Content Include="Content\matro-ui\js\office-ui-components.js" />
     <Content Include="Content\matro-ui\js\metro.js" />
     <Content Include="Content\matro-ui\js\metro.min.js" />
+    <Content Include="Data\Request\Elements.xml" />
+    <Content Include="Data\Request\RequestInstance\Elements.xml" />
+    <Content Include="Data\Request\Schema.xml" />
     <Content Include="Elements.xml" />
     <Content Include="Pages\Elements.xml" />
     <Content Include="Pages\Default.aspx" />
+    <None Include="Scripts\angular-animate.min.js.map" />
+    <None Include="Scripts\angular-cookies.min.js.map" />
     <None Include="SharePointProjectItem.spdata">
       <SharePointProjectItemId>{bccc60cd-c82d-48e6-ab1a-fd73bcce12b1}</SharePointProjectItemId>
     </None>
@@ -90,6 +109,10 @@
       <SharePointProjectItemId>{feb7e1d5-f0ca-4fa4-9642-8c5fb5a23e65}</SharePointProjectItemId>
     </None>
     <Content Include="Content\App\templates\ticket.html" />
+    <Content Include="Scripts\angular-animate.js" />
+    <Content Include="Scripts\angular-animate.min.js" />
+    <Content Include="Scripts\angular-cookies.js" />
+    <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />

@@ -31,5 +31,13 @@
     <ProjectItemFile Source="App\config.js" Target="Content\App\" Type="ElementFile" />
     <ProjectItemFile Source="App\controllers\header.controller.js" Target="Content\App\controllers\" Type="ElementFile" />
     <ProjectItemFile Source="App\services\config.service.js" Target="Content\App\services\" Type="ElementFile" />
+    <ProjectItemFile Source="App\services\SPListService.js" Target="Content\App\services\" Type="ElementFile" />
+    <ProjectItemFile Source="App\services\spUtilService.js" Target="Content\App\services\" Type="ElementFile" />
+    <ProjectItemFile Source="App\services\SPHttp.js" Target="Content\App\services\" Type="ElementFile" />
+    <ProjectItemFile Source="App\templates\ticket.new.html" Target="Content\App\templates\" Type="ElementFile" />
+    <ProjectItemFile Source="App\templates\ticket.detail.html" Target="Content\App\templates\" Type="ElementFile" />
+    <ProjectItemFile Source="App\controllers\ticket.detail.html" Target="Content\App\controllers\" Type="ElementFile" />
+    <ProjectItemFile Source="App\controllers\ticket.detail.controller.js" Target="Content\App\controllers\" Type="ElementFile" />
+    <ProjectItemFile Source="index.html" Target="Content\" Type="ElementFile" />
   </Files>
 </ProjectItem>

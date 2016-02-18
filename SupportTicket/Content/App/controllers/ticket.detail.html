@@ -1,4 +1,4 @@
-﻿<div ng-controller="TicketController as vm" ng-init="vm.loadRequests()">
+﻿<div ng-controller="TicketDetailController as vm">
 
     <h1 class="text-light">Support Tickets <span class="mif-drive-eta place-right"></span></h1>
     <hr class="thin bg-grayLighter">
@@ -7,7 +7,7 @@
     <hr class="thin bg-grayLighter">
     <div ng-repeat="request in vm.tickets">
         <div class="ms-ListItem is-unread is-selectable">
-            <a href="#ticket/{{request.ID}}">
+            <a href="#/ticket/{{request.ID}}">
                 <span class="ms-ListItem-primaryText" >{{request.Title}}</span>
                 <span class="ms-ListItem-secondaryText">{{request.RequestType}}</span>
                 <span class="ms-ListItem-tertiaryText">{{request.RequestDescription}}</span> 

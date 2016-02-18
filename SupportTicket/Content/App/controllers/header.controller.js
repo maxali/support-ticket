@@ -11,6 +11,7 @@
 
     function HeaderController(configService) {
         var vm = this;
+        vm.hostUrl = hostweburl;
         vm.user = configService.user;
         configService.registerObserverCallback(function () {
             vm.user = configService.user;

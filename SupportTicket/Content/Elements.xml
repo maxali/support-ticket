@@ -30,5 +30,13 @@
     <File Path="Content\App\services\TicketDataService.js" Url="Content/App/services/TicketDataService.js" ReplaceContent="TRUE" />
     <File Path="Content\App\config.js" Url="Content/App/config.js" ReplaceContent="TRUE" />
     <File Path="Content\App\services\config.service.js" Url="Content/App/services/config.service.js" ReplaceContent="TRUE" />
+    <File Path="Content\App\services\SPListService.js" Url="Content/App/services/SPListService.js" ReplaceContent="TRUE" />
+    <File Path="Content\App\services\spUtilService.js" Url="Content/App/services/spUtilService.js" ReplaceContent="TRUE" />
+    <File Path="Content\App\services\SPHttp.js" Url="Content/App/services/SPHttp.js" ReplaceContent="TRUE" />
+    <File Path="Content\App\templates\ticket.new.html" Url="Content/App/templates/ticket.new.html" ReplaceContent="TRUE" />
+    <File Path="Content\App\templates\ticket.detail.html" Url="Content/App/templates/ticket.detail.html" ReplaceContent="TRUE" />
+    <File Path="Content\App\controllers\ticket.detail.html" Url="Content/App/controllers/ticket.detail.html" ReplaceContent="TRUE" />
+    <File Path="Content\App\controllers\ticket.detail.controller.js" Url="Content/App/controllers/ticket.detail.controller.js" ReplaceContent="TRUE" />
+    <File Path="Content\index.html" Url="Content/index.html" ReplaceContent="TRUE" />
   </Module>
 </Elements>

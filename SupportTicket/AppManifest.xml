@@ -8,7 +8,7 @@
 >
   <Properties>
     <Title>SupportTicket</Title>
-    <StartPage>~appWebUrl/Pages/Default.aspx?{StandardTokens}</StartPage>
+    <StartPage>~appWebUrl/Pages/?{StandardTokens}</StartPage>
   </Properties>
 
   <AppPrincipal>

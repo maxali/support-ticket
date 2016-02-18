@@ -3,7 +3,9 @@
     'use strict';
 
     ticketApp = angular.module('ticketApp', [
-        'ngRoute'
+        'ngRoute',
+        'ngAnimate',
+        'ngCookies'
     ])
   
 

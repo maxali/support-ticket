@@ -1,0 +1,26 @@
+﻿<div ng-controller="TicketDetailController as vm">
+    <h1 class="text-light">
+        {{vm.ticket.Title}}
+    </h1>
+    <hr class="thin bg-grayLighter">
+    
+
+    <div class="sub-header text-light">
+        {{vm.ticket.RequestDescription}} 
+    </div>
+
+    <p>
+        More information about this request
+    </p>
+
+    <hr class="thin bg-grayLighter>
+
+    <div class="input-control textarea"
+         data-role="input" data-text-auto-resize="true">
+        <textarea style="width: 100%; min-height: 300px;"></textarea>
+    </div>
+    <div class="ms-TextField ms-TextField--multiline">
+        <label class="ms-Label">Enter street</label>
+        <textarea class="ms-TextField-field"></textarea>
+    </div>
+</div>

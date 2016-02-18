@@ -1,12 +1,12 @@
 ﻿
+var hostweburl = decodeURIComponent(getQueryStringParameter("SPHostUrl")),
+appweburl = decodeURIComponent(getQueryStringParameter("SPAppWebUrl")),
 
+appweburl = (appweburl.indexOf("#") !== -1) ? appweburl.substr(0, appweburl.indexOf("#")) : appweburl;
+scriptbase = hostweburl + "/_layouts/15/",
+apiBase = appweburl + "/_api/";
 // fetch config data
 angular.element(document).ready(function () {
-    var hostweburl = decodeURIComponent( getQueryStringParameter("SPHostUrl").replace("#", "") ),
-    appweburl =  decodeURIComponent( getQueryStringParameter("SPAppWebUrl").replace("#", "")),
-    
-    scriptbase = hostweburl + "/_layouts/15/";
-
     // Config app
 
     angular.module('ticketApp')
@@ -23,10 +23,6 @@ angular.element(document).ready(function () {
                 contentType: "application/json;odata=verbose",
                 success: function (data) {
                     configServiceProvider.config({
-
-                        hostWebUrl: hostweburl,
-                        appWebUrl: appweburl,
-                        scriptBase: scriptbase,
                         user: {
                             name: data.d.Title,
                             email: data.d.Email,
@@ -39,6 +35,19 @@ angular.element(document).ready(function () {
                 }
             });
 
+            /*
+            var $cookies;
+            angular.injector(['ngCookies']).invoke(['$cookies', function (_$cookies_) {
+                $cookies = _$cookies_;
+            }]);
+
+            $cookies.put("hostWeb", hostweburl, { path: "/" });
+            $cookies.put("appWeb", appweburl, { path: "/" });
+            $cookies.put("scriptBase", scriptbase, { path: "/" });
+            $cookies.put("apiBase", apiBase, { path: "/" });
+
+            window.location.href = appweburl + "/Content/index.html";
+            */
         }]);
 
 

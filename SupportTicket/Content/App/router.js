@@ -4,6 +4,9 @@ angular.module('ticketApp')
     $routeProvider
         .when('/', {
             templateUrl: "../Content/App/templates/ticket.html"
+        })
+        .when('/ticket/:id', {
+            templateUrl: "../Content/App/templates/ticket.detail.html"
         });
 
 });
