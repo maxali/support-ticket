@@ -2,31 +2,36 @@
 
 // fetch config data
 angular.element(document).ready(function () {
-    hostweburl = decodeURIComponent( getQueryStringParameter("SPHostUrl").replace("#", "") );
-    appweburl =  decodeURIComponent( getQueryStringParameter("SPAppWebUrl").replace("#", ""));
+    var hostweburl = decodeURIComponent( getQueryStringParameter("SPHostUrl").replace("#", "") ),
+    appweburl =  decodeURIComponent( getQueryStringParameter("SPAppWebUrl").replace("#", "")),
     
-    var scriptbase = hostweburl + "/_layouts/15/";
-
+    scriptbase = hostweburl + "/_layouts/15/";
 
     // Config app
-    var header = header || {};
-    header["Accept"] = "application/json;odata=verbose";
-    header["Content-Type"] = "application/json;odata=verbose";
 
     angular.module('ticketApp')
         .config(['configServiceProvider', function (configServiceProvider) {
             // Get current user
+            var header = header || {};
+            header["Accept"] = "application/json;odata=verbose";
+            header["Content-Type"] = "application/json;odata=verbose";
+
             $.ajax({
                 url: appweburl + "/_api/SP.AppContextSite(@target)/web/GetUserById(9)?@target='" + hostweburl + "'",
                 method: "GET",
                 headers: header,
                 contentType: "application/json;odata=verbose",
                 success: function (data) {
-                    console.log(data.d);
                     configServiceProvider.config({
-                        userName: data.d.Title,
-                        email: data.d.Email,
-                        profilePic: scriptbase + "userphoto.aspx?size=L&username=" + data.d.Email
+
+                        hostWebUrl: hostweburl,
+                        appWebUrl: appweburl,
+                        scriptBase: scriptbase,
+                        user: {
+                            name: data.d.Title,
+                            email: data.d.Email,
+                            picture: scriptbase + "userphoto.aspx?size=L&username=" + data.d.Email
+                        }
                     });
                 },
                 error: function (err) {
@@ -35,7 +40,10 @@ angular.element(document).ready(function () {
             });
 
         }]);
-    
+
+
+
+
     angular.bootstrap('body', ['ticketApp']);
     /*
  

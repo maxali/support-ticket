@@ -30,5 +30,6 @@
     <ProjectItemFile Source="App\services\TicketDataService.js" Target="Content\App\services\" Type="ElementFile" />
     <ProjectItemFile Source="App\config.js" Target="Content\App\" Type="ElementFile" />
     <ProjectItemFile Source="App\controllers\header.controller.js" Target="Content\App\controllers\" Type="ElementFile" />
+    <ProjectItemFile Source="App\services\config.service.js" Target="Content\App\services\" Type="ElementFile" />
   </Files>
 </ProjectItem>

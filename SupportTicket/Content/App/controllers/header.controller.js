@@ -5,15 +5,19 @@
 
     angular
       .module('ticketApp')
-      .controller('headerController', headerController);
+      .controller('HeaderController', HeaderController);
 
-    headerController.$inject = ['configService'];
-    function headerController(configService) {
+    HeaderController.$inject = ['configService'];
+
+    function HeaderController(configService) {
         var vm = this;
+        vm.user = configService.user;
+        configService.registerObserverCallback(function () {
+            vm.user = configService.user;
+        });
+        
 
-        vm.user = {};
-        vm.user.name = configService.userName;
-        vm.user.email = configService.email;
+        //vm.user.email = configService.user.email;
 
         activate();
 

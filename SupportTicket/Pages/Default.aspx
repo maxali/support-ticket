@@ -33,6 +33,7 @@
 
     <!-- Angular ticketApp files -->
     <script src="../Content/App/app.js"></script>
+
     <script src="../Content/App/router.js"></script>
     <script src="../Content/App/config.js"></script>
     <script src="../Content/App/services/TicketDataService.js"></script>
@@ -41,7 +42,7 @@
 
 </head>
 <body style="background: rgba(222, 222, 222, 0.56);">
-    <div class="app-bar fixed-top darcula" data-role="appbar" ng-controller="headerController as vm">
+    <div class="app-bar fixed-top darcula" data-role="appbar" ng-controller="HeaderController as vm">
         <a class="app-bar-element branding">SharePoint </a>
         <span class="app-bar-divider"></span>
         <ul class="app-bar-menu">

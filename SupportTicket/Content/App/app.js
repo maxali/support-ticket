@@ -5,13 +5,20 @@
     ticketApp = angular.module('ticketApp', [
         'ngRoute'
     ])
+  
 
-    // Configuration provider
     .provider('configService', function () {
-        var options = {};
+        var observerCallbacks = [];
+        var options = {
+            //register an observer
+            registerObserverCallback: function (callback) {
+                observerCallbacks.push(callback);
+            }
+        }
+
         this.config = function (opt) {
-            console.log(opt);
             angular.extend(options, opt);
+            notifyObservers();
         };
 
         this.$get = [function () {
@@ -20,6 +27,13 @@
             }
             return options;
         }];
+
+        var notifyObservers = function () {
+            angular.forEach(observerCallbacks, function (callback) {
+                callback();
+            });
+        };
+
     });
 
 

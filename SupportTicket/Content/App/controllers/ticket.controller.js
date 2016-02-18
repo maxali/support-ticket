@@ -10,16 +10,17 @@
     function TicketController(configService) {
         var vm = this;
 
-        vm.name = configService.userName;
+        vm.user = configService.user;
+        function updateUser() {
+            vm.user = configService.user;
+        }
+
+        configService.registerObserverCallback(updateUser);
 
         activate();
 
         ////////////////
-
         
-
-
-
         function activate() { }
     }
     console.log("TicketController loaded");

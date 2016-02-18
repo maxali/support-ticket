@@ -29,5 +29,6 @@
     <File Path="Content\matro-ui\css\fabric.min.css" Url="Content/matro-ui/css/fabric.min.css" ReplaceContent="TRUE" />
     <File Path="Content\App\services\TicketDataService.js" Url="Content/App/services/TicketDataService.js" ReplaceContent="TRUE" />
     <File Path="Content\App\config.js" Url="Content/App/config.js" ReplaceContent="TRUE" />
+    <File Path="Content\App\services\config.service.js" Url="Content/App/services/config.service.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>
