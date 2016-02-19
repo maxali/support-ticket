@@ -4,12 +4,12 @@
     <ContentTypes>
       
       
-    <ContentType ID="0x0100c0bd98b65932496287fbb0e4a3245d90" Name="ListFieldsContentType"><FieldRefs><FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" /><FieldRef ID="{994b4fcd-f8ad-427d-9bcd-e9b2c6f86806}" Name="RequestDescription" /><FieldRef ID="{0d02de5a-9185-417e-bc82-c8d24995793b}" Name="RequestType" /></FieldRefs></ContentType><ContentTypeRef ID="0x01">
+    <ContentType ID="0x0100c0bd98b65932496287fbb0e4a3245d90" Name="ListFieldsContentType"><FieldRefs><FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" /><FieldRef ID="{994b4fcd-f8ad-427d-9bcd-e9b2c6f86806}" Name="RequestDescription" /><FieldRef ID="{0d02de5a-9185-417e-bc82-c8d24995793b}" Name="RequestType" /><FieldRef ID="{0ccfcfc1-c411-4bec-8d8d-c5b50e04cff3}" Name="Body1" /><FieldRef ID="{4dfcffa9-ada2-4e99-b12b-1b7d31d2f004}" Name="CreatedBy" /></FieldRefs></ContentType><ContentTypeRef ID="0x01">
         <Folder TargetName="Item" />
       </ContentTypeRef><ContentTypeRef ID="0x0120" /></ContentTypes>
     <Fields>
       
-    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="$Resources:core,Title;" Required="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="RequestDescription" ID="{994b4fcd-f8ad-427d-9bcd-e9b2c6f86806}" DisplayName="RequestDescription" Type="Note" /><Field Name="RequestType" ID="{0d02de5a-9185-417e-bc82-c8d24995793b}" DisplayName="RequestType" Type="Text" /></Fields>
+    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="$Resources:core,Title;" Required="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="RequestDescription" ID="{994b4fcd-f8ad-427d-9bcd-e9b2c6f86806}" DisplayName="RequestDescription" Type="Note" /><Field Name="RequestType" ID="{0d02de5a-9185-417e-bc82-c8d24995793b}" DisplayName="RequestType" Type="Text" /><Field Name="Body1" ID="{0ccfcfc1-c411-4bec-8d8d-c5b50e04cff3}" DisplayName="Body" Type="Text" /><Field Name="CreatedBy" ID="{4dfcffa9-ada2-4e99-b12b-1b7d31d2f004}" DisplayName="AssignedTo" Type="User" List="UserInfo" /></Fields>
     <Views>
       
       
@@ -37,7 +37,7 @@
         <RowLimit Paged="TRUE">30</RowLimit>
         <ViewFields>
           
-        <FieldRef Name="LinkTitle"></FieldRef><FieldRef Name="RequestDescription" /><FieldRef Name="RequestType" /></ViewFields>
+        <FieldRef Name="LinkTitle"></FieldRef><FieldRef Name="RequestDescription" /><FieldRef Name="RequestType" /><FieldRef Name="Body1" /><FieldRef Name="CreatedBy" /></ViewFields>
         <Query>
           <OrderBy>
             

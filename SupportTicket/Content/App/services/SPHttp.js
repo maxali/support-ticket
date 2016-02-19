@@ -8,7 +8,8 @@
 
     function $SPHttp(configService, $http) {
         var service = {
-            get: get
+            get: get,
+            post: post
         };
 
         function get(options) {
@@ -19,6 +20,18 @@
                     "Accept": "application/json; odata=verbose",
                     "Content-Type": "application/json; odata=verbose"
                 }
+            });
+        }
+
+        function post(options) {
+            return $http({
+                method: 'POST',
+                url: options.url,
+                headers: options.headers || {
+                    "Accept": "application/json; odata=verbose",
+                    "Content-Type": "application/json; odata=verbose"
+                },
+                data: options.data || ""
             });
         }
 

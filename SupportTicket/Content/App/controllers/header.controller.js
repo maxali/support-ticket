@@ -25,3 +25,26 @@
         function activate() { }
     }
 })();
+
+
+
+(function () {
+    'use strict';
+    angular
+      .module('ticketApp')
+      .controller('MenuController', [ '$scope', MenuController]);
+
+    function MenuController($scope) {
+        var vm = this;
+
+        $scope.$on('routeChange', function (event, next, current) {
+            vm.currentRoute = next;
+        });
+
+        vm.title = '';
+
+        activate();
+
+        function activate() { }
+    }
+})();

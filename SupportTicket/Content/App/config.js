@@ -1,7 +1,7 @@
 ﻿
 var hostweburl = decodeURIComponent(getQueryStringParameter("SPHostUrl")),
 appweburl = decodeURIComponent(getQueryStringParameter("SPAppWebUrl")),
-
+requestDigest = "",
 appweburl = (appweburl.indexOf("#") !== -1) ? appweburl.substr(0, appweburl.indexOf("#")) : appweburl;
 scriptbase = hostweburl + "/_layouts/15/",
 apiBase = appweburl + "/_api/";
@@ -15,6 +15,19 @@ angular.element(document).ready(function () {
             var header = header || {};
             header["Accept"] = "application/json;odata=verbose";
             header["Content-Type"] = "application/json;odata=verbose";
+
+            $.ajax({
+                url: apiBase + "contextinfo",
+                method: "POST",
+                headers: { "Accept": "application/json; odata=verbose" },
+                success: function (data) {
+                    console.log(data);
+                    requestDigest = data.d.GetContextWebInformation.FormDigestValue;
+                },
+                error: function (data, errorCode, errorMessage) {
+                    alert(errorMessage)
+                }
+            });
 
             $.ajax({
                 url: appweburl + "/_api/SP.AppContextSite(@target)/web/GetUserById(9)?@target='" + hostweburl + "'",

@@ -43,8 +43,8 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Content\App\controllers\ticket.new.controller.js" />
     <Content Include="Content\App\controllers\ticket.detail.controller.js" />
-    <Content Include="Content\App\controllers\ticket.detail.html" />
     <Content Include="Content\App\services\SPHttp.js" />
     <Content Include="Content\App\services\config.service.js" />
     <None Include="Content\matro-ui\fonts\metro.eot" />

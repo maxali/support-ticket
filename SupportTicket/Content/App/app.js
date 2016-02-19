@@ -7,6 +7,13 @@
         'ngAnimate',
         'ngCookies'
     ])
+
+    .run(['$rootScope', function ($rootScope) {
+        $rootScope.$on('$routeChangeStart', function (event, next, current) {
+            $rootScope.$broadcast("routeChange", next.params);
+            //console.log(next.params["status"]);
+        });
+    }])
   
 
     .provider('configService', function () {

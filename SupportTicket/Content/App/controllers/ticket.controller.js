@@ -5,14 +5,25 @@
     angular
         .module('ticketApp')
         .controller('TicketController', TicketController);
-    TicketController.$inject = ['$scope', 'configService', '$SPService'];
+    TicketController.$inject = ['$scope', 'configService', '$routeParams', '$SPService'];
 
-    function TicketController($scope, configService, $SPService) {
-        var vm = this;
+    function TicketController($scope, configService, $routeParams, $SPService) {
+        var vm = this,
+            $filter = ""; // requests filter
 
         vm.user = [],
         vm.tickets = [];
 
+        // get user infromation from configService
+        vm.user = configService.user;
+        configService.registerObserverCallback(updateUser); // update if changed
+
+        if ($routeParams.status) {
+            vm.title = $routeParams.status + " tickets";
+            $filter = "status eq " + $routeParams.status;
+        } else {
+            vm.title = "Support Tickets";
+        }
 
         // load list
         vm.loadRequests = function(){
@@ -23,17 +34,12 @@
                     $(".ms-ListItem").ListItem();
                 })
         }
-        
 
-        // get user infromation from configService
-        vm.user = configService.user;
         function updateUser() {
             vm.user = configService.user;
         }
-        configService.registerObserverCallback(updateUser);
         
 
     }
-    console.log("TicketController loaded");
 })();
 

@@ -1,9 +1,7 @@
 ﻿<!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title></title>
-
-
+    <title>Support Ticket</title>
 
     <!-- Add your CSS styles to the following file -->
     <link href="../Content/matro-ui/css/metro.min.css" rel="stylesheet" />
@@ -16,7 +14,7 @@
     <link href="../Content/matro-ui/css/fabric.min.css" rel="stylesheet" />
     <link href="../Content/matro-ui/css/fabric.components.min.css" rel="stylesheet" />
 
-
+    <script type="text/javascript" src="/_layouts/1033/init.js"></script>
     <script type="text/javascript" src="/_layouts/15/MicrosoftAjax.js"></script>
     <script type="text/javascript" src="/_layouts/15/SP.js"></script>
     <script type="text/javascript" src="/_layouts/15/SP.runtime.js"></script>
@@ -45,6 +43,8 @@
     <script src="../Content/App/controllers/header.controller.js"></script>
     <script src="../Content/App/controllers/ticket.controller.js"></script>
     <script src="../Content/App/controllers/ticket.detail.controller.js"></script>
+    <script src="../Content/App/controllers/ticket.new.controller.js"></script>
+
 </head>
 <body style="background: rgba(222, 222, 222, 0.56);">
     <div class="app-bar fixed-top darcula" data-role="appbar" ng-controller="HeaderController as vm">
@@ -65,7 +65,7 @@
                     <li><a href="" class="fg-white3 fg-hover-yellow">Logout</a></li>
                 </ul>
             </div>
-            <div class="place-right no-margin-top" >
+            <div class="place-right no-margin-top profile-image"  >
                 <img alt="Profile image" ng-if="vm.user.picture" width="50" height="50" ng-src="{{vm.user.picture}}" class="profile-image"/> 
             </div>
         </div>
@@ -76,18 +76,22 @@
         <div class="flex-grid no-responsive-future" style="height: 100%;">
             <div class="row" style="height: 100%; border-top: 1px solid rgba( 239,239,239,0.78 );">
                 <div class="cell size-x200" id="cell-sidebar" style="background-color: #71b1d1; height: 100%">
-                    <ul class="sidebar">
-                        <li class="active"><a href="#">
+                    <ul class="sidebar" ng-controller="MenuController as vm">
+                        <li  ng-class="{'active': vm.currentRoute.status==undefined}"><a href="#/tickets">
+                            <span class="mif-mail icon"></span>
+                            <span class="title">Dashboard</span>
+                        </a></li>
+                        <li ng-class="{'active': vm.currentRoute.status=='open'}"><a href="#/tickets/status/open">
                             <span class="mif-mail icon"></span>
                             <span class="title">Open tickets</span>
                             <span class="counter">2</span>
                         </a></li>
-                        <li><a href="#">
+                        <li ng-class="{'active': vm.currentRoute.status=='closed'}"><a href="#/tickets/status/closed">
                             <span class="mif-mail-read icon"></span>
                             <span class="title">Closed tickets</span>
                             <span class="counter">0</span>
                         </a></li>
-                        <li><a href="#">
+                        <li ng-class="{'active': vm.currentRoute.status=='urgent'}"><a href="#/tickets/status/urgent">
                             <span class="mif-drive-eta icon"></span>
                             <span class="title">Urgent</span>
                             <span class="counter">2</span>

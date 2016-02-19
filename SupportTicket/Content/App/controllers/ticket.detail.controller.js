@@ -19,12 +19,10 @@
                 .then(function (data) {
                     
                     vm.ticket = data.data.d.results[0] || {};
-                    console.log(data);
                 })
         }
         vm.loadRequest();
         
     }
-    console.log("TicketDetailController loaded");
 })();
 
