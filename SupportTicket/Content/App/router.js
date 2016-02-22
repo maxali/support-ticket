@@ -16,7 +16,7 @@ angular.module('ticketApp')
         })
         .when('/ticket/:id', {
             templateUrl: "../Content/App/templates/ticket.detail.html"
-        });
-        //.otherwise("/tickets");
+        })
+        .otherwise("/tickets");
 
 });

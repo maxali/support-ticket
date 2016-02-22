@@ -16,8 +16,12 @@
 
     <script type="text/javascript" src="/_layouts/1033/init.js"></script>
     <script type="text/javascript" src="/_layouts/15/MicrosoftAjax.js"></script>
-    <script type="text/javascript" src="/_layouts/15/SP.js"></script>
+    <script type="text/javascript" src="/_layouts/15/init.js"></script>
+    <script type="text/javascript" src="/_layouts/15/core.js"></script>
     <script type="text/javascript" src="/_layouts/15/SP.runtime.js"></script>
+    <script type="text/javascript" src="/_layouts/15/SP.js"></script>
+    <script type="text/javascript" src="/_layouts/15/SP.init.js"></script>
+    <script type="text/javascript" src="/_layouts/15/SP.core.js"></script>
     <script type="text/javascript" src="/_layouts/15/SP.RequestExecutor.js"></script>
 
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
@@ -61,7 +65,7 @@
             <div class="app-bar-drop-container padding10 place-right no-margin-top block-shadow fg-dark" data-role="dropdown" data-no-close="true" style="width: 220px">
                 <h2 class="text-light">Quick settings</h2>
                 <ul class="unstyled-list fg-dark">
-                    <li><a href="" class="fg-white2 fg-hover-yellow">Settings</a></li>
+                    <li><a href="{{vm.hostUrl}}/_layouts/15/userdisp.aspx" class="fg-white2 fg-hover-yellow">My Settings</a></li>
                     <li><a href="" class="fg-white3 fg-hover-yellow">Logout</a></li>
                 </ul>
             </div>

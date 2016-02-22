@@ -28,7 +28,7 @@
         // load list
         vm.loadRequests = function(){
             $SPService.list
-                .getItems("Request", "ID,Title,RequestDescription,RequestType,Created")
+                .getItems("Request", "ID,Title,RequestType,Body,AssignedTo/Title,Created&$expand=AssignedTo")
                 .then(function (data) {
                     vm.tickets = data.data.d.results;
                     $(".ms-ListItem").ListItem();

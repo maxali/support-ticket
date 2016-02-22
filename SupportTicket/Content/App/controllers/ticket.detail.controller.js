@@ -15,7 +15,7 @@
         // load list
         vm.loadRequest = function(ticket){
             $SPService.list
-                .getItems("Request","ID,Title,RequestDescription,RequestType,Created", "ID eq " +  $routeParams.id)
+                .getItems("Request", "ID,Title,RequestType,Body,AssignedTo/Title,Created&$expand=AssignedTo", "ID eq " + $routeParams.id)
                 .then(function (data) {
                     
                     vm.ticket = data.data.d.results[0] || {};

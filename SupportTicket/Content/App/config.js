@@ -16,31 +16,23 @@ angular.element(document).ready(function () {
             header["Accept"] = "application/json;odata=verbose";
             header["Content-Type"] = "application/json;odata=verbose";
 
-            $.ajax({
-                url: apiBase + "contextinfo",
-                method: "POST",
-                headers: { "Accept": "application/json; odata=verbose" },
-                success: function (data) {
-                    console.log(data);
-                    requestDigest = data.d.GetContextWebInformation.FormDigestValue;
-                },
-                error: function (data, errorCode, errorMessage) {
-                    alert(errorMessage)
-                }
+            
+
+            getCurrentUser(function (userInfo) {
+                configServiceProvider.config(userInfo);
+                getRequestDigest();
             });
 
+
+            /*
             $.ajax({
                 url: appweburl + "/_api/SP.AppContextSite(@target)/web/GetUserById(9)?@target='" + hostweburl + "'",
                 method: "GET",
                 headers: header,
                 contentType: "application/json;odata=verbose",
                 success: function (data) {
-                    configServiceProvider.config({
-                        user: {
-                            name: data.d.Title,
-                            email: data.d.Email,
-                            picture: scriptbase + "userphoto.aspx?size=L&username=" + data.d.Email
-                        }
+                    console.log(data);
+
                     });
                 },
                 error: function (err) {
@@ -48,7 +40,7 @@ angular.element(document).ready(function () {
                 }
             });
 
-            /*
+           
             var $cookies;
             angular.injector(['ngCookies']).invoke(['$cookies', function (_$cookies_) {
                 $cookies = _$cookies_;
@@ -102,4 +94,50 @@ $.getMultiScripts = function (arr, path) {
     }));
 
     return $.when.apply($, _arr);
+}
+
+
+
+function getCurrentUser(cb) {
+    var context = SP.ClientContext.get_current();
+    var web = context.get_web();
+    var currentUser = web.get_currentUser();
+    context.load(currentUser);
+    context.executeQueryAsync(function (data) {
+        console.log(currentUser.get_loginName());
+
+        var userInfo = {
+            user: {
+                id: currentUser.get_id(),
+                name: currentUser.get_title(),
+                email: currentUser.get_email(),
+                picture: "https://outlook.office365.com/owa/service.svc/s/GetPersonaPhoto?email=" + currentUser.get_email() + "&UA=0&size=HR64x64&sc=1456140360229" //scriptbase + "userphoto.aspx?size=L&username=" + currentUser.get_email()
+            }
+        };
+
+        if (typeof cb == "function")
+            cb(userInfo);
+        else 
+            return userInfo;
+    }, function (err) {
+        console.log(err);
+    })
+}
+
+
+
+function getRequestDigest() {
+    // get request Digest
+    $.ajax({
+        url: apiBase + "contextinfo",
+        method: "POST",
+        headers: { "Accept": "application/json; odata=verbose" },
+        success: function (data) {
+            requestDigest = data.d.GetContextWebInformation.FormDigestValue;
+            return requestDigest;
+        },
+        error: function (data, errorCode, errorMessage) {
+            alert(errorMessage)
+        }
+    });
 }

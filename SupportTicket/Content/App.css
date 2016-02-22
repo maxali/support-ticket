@@ -32,6 +32,11 @@ img.profile-image {
     opacity: 1;
 }
 
+
+input.ng-invalid {
+    border: 1px solid #ff6a00;
+}
+
 @media screen and (max-width: 800px){
     #cell-sidebar {
         flex-basis: 52px;
