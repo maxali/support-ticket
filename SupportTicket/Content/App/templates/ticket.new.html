@@ -12,8 +12,9 @@
 
         <div class="ms-TextField ms-TextField--multiline">
             <label class="ms-Label">Request Body</label>
-            <textarea class="ms-TextField-field"  ng-model="vm.ticket.requestBody"  id="requestBody"  name="requestBody" style="min-height:300px;">
-                "{{newTicketForm.$valid==true}}"
+            <textarea class="ms-TextField-field" 
+											ng-model="vm.ticket.requestBody"  id="requestBody"  
+											name="requestBody" style="min-height:300px;">
             </textarea>
         </div>
         <div class="ms-Dropdown" tabindex="0">
@@ -21,22 +22,23 @@
             <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
             <select class="ms-Dropdown-select"  ng-model="vm.ticket.requestType"  id="requestType"  name="requestType" >
                 <option value="Choose a sound…">Select request type…</option>
-                <option value="Dog barking">Document</option>
-                <option value="Wind blowing">File Problem</option>
-                <option value="Duck quacking">System fail</option>
-                <option value="Cow mooing">Another </option>
+                <option value="Dog barking">Administration</option>
+                <option value="Wind blowing">Information</option>
+                <option value="Duck quacking">Facilities</option>
+                <option value="Cow mooing">Operations </option>
             </select>
         </div>
-        <div class="ms-PeoplePicker">
+        <div class="ms-PeoplePicker single">
             <label class="ms-Label">Assigned To</label>
             <div class="ms-PeoplePicker-searchBox">
-                <input class="ms-PeoplePicker-searchField" ng-model="vm.ticket.assignedTo" ng-change="vm.search()" type="text">
+                <input class="ms-PeoplePicker-searchField" ng-model="vm.ticket.searchBox" ng-change="vm.search()" type="text">
+								<input type="text" class="selectedKey ng-hide" ng-model="vm.ticket.key" />
             </div>
             <div class="ms-PeoplePicker-results">
                 <div class="ms-PeoplePicker-resultGroups">
                     <ul class="ms-PeoplePicker-resultList"
                         ng-repeat="person in vm.peoplePicker">
-                        <li class="ms-PeoplePicker-result" ng-click="vm.ticket.assignedTo=this.person">
+                        <li class="ms-PeoplePicker-result"> <!-- ng-click="vm.ticket.assignedTo=this.person">-->
                             <div class="ms-Persona ms-Persona--square">
                                 <div class="ms-Persona-imageArea">
                                     <i class="ms-Persona-placeholder ms-Icon ms-Icon--person"></i>
@@ -44,7 +46,7 @@
                                 </div>
                                 <div class="ms-Persona-presence"></div>
                                 <div class="ms-Persona-details">
-                                    
+                                    <input type="hidden" class="ms-Persona-dataKey" value="{{person.Key}}" />
                                     <div class="ms-Persona-primaryText">{{person.DisplayText}}</div>
                                     <div class="ms-Persona-secondaryText">{{person.EntityData.Email}}</div>
                                 </div>

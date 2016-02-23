@@ -351,6 +351,7 @@
             $results.on('click', '.ms-PeoplePicker-result', function (event) {
                 var selectedName = $(this).find(".ms-Persona-primaryText").html();
                 var selectedTitle = $(this).find(".ms-Persona-secondaryText").html();
+                var dataKey = $(this).find(".ms-Persona-dataKey").val();
                 var selectedImage = $(this).find(".ms-Persona-image").attr('src');
                 var personaHTML = '<div class="ms-PeoplePicker-persona">' +
                       '<div class="ms-Persona ms-Persona--xs ms-Persona--square">' +
@@ -380,10 +381,15 @@
                               '</div>' +
                               '<button class="ms-PeoplePicker-resultAction js-selectedRemove"><i class="ms-Icon ms-Icon--x"></i></button>' +
                           '</li>';
+                if ($peoplePicker.find('.ms-PeoplePicker-persona').length > 0 && $peoplePicker.hasClass('single'))
+                		return false;
                 if (!$peoplePicker.hasClass('ms-PeoplePicker--facePile')) {
-                    $searchField.before(personaHTML);
+                		$searchField.before(personaHTML);
+                		$searchField.val(selectedTitle);
                     $peoplePicker.removeClass("is-active");
                     resizeSearchField($peoplePicker);
+                    $searchField.siblings(".selectedKey").val(dataKey).trigger('input');
+
                     $('.ms-PeoplePicker-searchField').val("");
                 }
                 else {
@@ -399,8 +405,10 @@
 
             /** Remove the persona when clicking the personaRemove button. */
             $peoplePicker.on('click', '.ms-PeoplePicker-personaRemove', function (event) {
-                $(this).parents('.ms-PeoplePicker-persona').remove();
-
+							// Remove value from Hidden Key Input (for Angular)
+            	$(this).parents('.ms-PeoplePicker-persona').siblings(".selectedKey").val("").trigger("input");
+            	$(this).parents('.ms-PeoplePicker-persona').remove();
+                
                 /** Make the search field 100% width if all personas have been removed */
                 if ($('.ms-PeoplePicker-persona').length == 0) {
                     $peoplePicker.find('.ms-PeoplePicker-searchField').outerWidth('100%');

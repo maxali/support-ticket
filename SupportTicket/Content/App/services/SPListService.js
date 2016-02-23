@@ -74,7 +74,6 @@
                     var results = JSON.parse(data.data.d.ClientPeoplePickerSearchUser);
                     if (results.length > 0) {
                         $.each(results, function (i, item) {
-                            console.log(item)
                             item.image = scriptbase + "userphoto.aspx?size=L&username=" + item.EntityData.Email
                         });
 

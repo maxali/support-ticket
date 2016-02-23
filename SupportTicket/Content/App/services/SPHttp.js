@@ -29,7 +29,8 @@
                 url: options.url,
                 headers: options.headers || {
                     "Accept": "application/json; odata=verbose",
-                    "Content-Type": "application/json; odata=verbose"
+                    "Content-Type": "application/json; odata=verbose",
+                    "X-RequestDigest": requestDigest
                 },
                 data: options.data || ""
             });

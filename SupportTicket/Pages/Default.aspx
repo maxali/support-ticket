@@ -62,8 +62,22 @@
             <span class="dropdown-toggle"><span class="mif-cog"></span>
                 {{vm.user.name}}             
             </span>
-            <div class="app-bar-drop-container padding10 place-right no-margin-top block-shadow fg-dark" data-role="dropdown" data-no-close="true" style="width: 220px">
-                <h2 class="text-light">Quick settings</h2>
+            <div class="app-bar-drop-container padding10 place-right no-margin-top block-shadow fg-dark" data-role="dropdown" data-no-close="true" style="width: 320px">
+                <h4 class="text-light">Quick settings</h4>
+								<div class="flex-grid">
+									<div class="row">
+										<div class="cell colspan2">
+											<div class="no-margin-top"  >
+													<img alt="Profile image" ng-if="vm.user.picture" width="50" height="50" ng-src="{{vm.user.picture}}" class="profile-image"/> 
+											</div>
+										</div>
+										<div class="cell colspan10" style="padding-left: 10px; line-height: 1.5em;">
+											<span>{{vm.user.name}}</span>
+											<span style="font-weight: lighter;">{{vm.user.email}}</span>
+										</div>
+									</div>
+									<hr style="height:1px;" />
+								</div>
                 <ul class="unstyled-list fg-dark">
                     <li><a href="{{vm.hostUrl}}/_layouts/15/userdisp.aspx" class="fg-white2 fg-hover-yellow">My Settings</a></li>
                     <li><a href="" class="fg-white3 fg-hover-yellow">Logout</a></li>

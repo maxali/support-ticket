@@ -2,85 +2,85 @@
 <List xmlns:ows="Microsoft SharePoint" Title="Request" FolderCreation="FALSE" Direction="$Resources:Direction;" Url="Lists/Request" BaseType="0" xmlns="http://schemas.microsoft.com/sharepoint/">
   <MetaData>
     <ContentTypes>
-      <ContentType ID="0x0100c0bd98b65932496287fbb0e4a3245d90" Name="ListFieldsContentType">
+      
+      
+      
+    <ContentType ID="0x0100c0bd98b65932496287fbb0e4a3245d90" Name="ListFieldsContentType">
         <FieldRefs>
-          <FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" />
-          <FieldRef ID="{0ccfcfc1-c411-4bec-8d8d-c5b50e04cff3}" Name="Body" />
-          <FieldRef ID="{4dfcffa9-ada2-4e99-b12b-1b7d31d2f004}" Name="AssignedTo" />
-          <FieldRef ID="{182b6571-4386-4fd9-b5ca-f9c3bceaaf9d}" Name="Status" />
-          <FieldRef ID="{f0d7bbde-c1c8-4734-b532-d389fd7d3222}" Name="RequestType" />
-        </FieldRefs>
-      </ContentType>
-      <ContentTypeRef ID="0x01">
+          
+          
+          
+          
+          
+        <FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" /><FieldRef ID="{0ccfcfc1-c411-4bec-8d8d-c5b50e04cff3}" Name="Body" /><FieldRef ID="{4dfcffa9-ada2-4e99-b12b-1b7d31d2f004}" Name="AssignedTo" /><FieldRef ID="{182b6571-4386-4fd9-b5ca-f9c3bceaaf9d}" Name="Status" /><FieldRef ID="{f0d7bbde-c1c8-4734-b532-d389fd7d3222}" Name="RequestType" /></FieldRefs>
+      </ContentType><ContentTypeRef ID="0x01">
         <Folder TargetName="Item" />
-      </ContentTypeRef>
-      <ContentTypeRef ID="0x0120" />
-    </ContentTypes>
+      </ContentTypeRef><ContentTypeRef ID="0x0120" /></ContentTypes>
     <Fields>
 
-      <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="$Resources:core,Title;" Required="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" />
-      <Field Name="Body" ID="{0ccfcfc1-c411-4bec-8d8d-c5b50e04cff3}" DisplayName="Body" Type="Text" />
-      <Field Name="AssignedTo" ID="{4dfcffa9-ada2-4e99-b12b-1b7d31d2f004}" DisplayName="AssignedTo" Type="User" List="UserInfo" />
-      <Field Name="Status" ID="{182b6571-4386-4fd9-b5ca-f9c3bceaaf9d}" DisplayName="Customer" Type="Lookup" />
-      <Field Name="RequestType" ID="{f0d7bbde-c1c8-4734-b532-d389fd7d3222}" DisplayName="RequestType" Type="Choice">
+      
+      
+      
+      
+      
+    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="$Resources:core,Title;" Required="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="Body" ID="{0ccfcfc1-c411-4bec-8d8d-c5b50e04cff3}" DisplayName="Body" Type="Note" /><Field Name="AssignedTo" ID="{4dfcffa9-ada2-4e99-b12b-1b7d31d2f004}" DisplayName="AssignedTo" Type="User" List="UserInfo" /><Field Name="Status" ID="{182b6571-4386-4fd9-b5ca-f9c3bceaaf9d}" DisplayName="Customer" Type="Lookup" /><Field Name="RequestType" ID="{f0d7bbde-c1c8-4734-b532-d389fd7d3222}" DisplayName="RequestType" Type="Choice">
           <CHOICES>
-            <CHOICE>Administration</CHOICE>
-            <CHOICE>Information</CHOICE>
-            <CHOICE>Facilities</CHOICE>
-            <CHOICE>Operations</CHOICE>
-            <CHOICE>Sales</CHOICE>
-            <CHOICE>Marketing</CHOICE>
-          </CHOICES>    
-      </Field>
-    </Fields>
+            
+            
+            
+            
+            
+            
+          <CHOICE>Administration</CHOICE><CHOICE>Information</CHOICE><CHOICE>Facilities</CHOICE><CHOICE>Operations</CHOICE><CHOICE>Sales</CHOICE><CHOICE>Marketing</CHOICE></CHOICES>    
+      </Field></Fields>
     <Views>
 
 
-      <View BaseViewID="0" Type="HTML" MobileView="TRUE" TabularView="FALSE">
+      
+      
+    <View BaseViewID="0" Type="HTML" MobileView="TRUE" TabularView="FALSE">
         <Toolbar Type="Standard" />
         <XslLink Default="TRUE">main.xsl</XslLink>
         <RowLimit Paged="TRUE">30</RowLimit>
         <ViewFields>
 
-          <FieldRef Name="LinkTitleNoMenu"></FieldRef>
-        </ViewFields>
+          
+        <FieldRef Name="LinkTitleNoMenu"></FieldRef></ViewFields>
         <Query>
           <OrderBy>
 
-            <FieldRef Name="Modified" Ascending="FALSE"></FieldRef>
-          </OrderBy>
+            
+          <FieldRef Name="Modified" Ascending="FALSE"></FieldRef></OrderBy>
         </Query>
         <ParameterBindings>
           <ParameterBinding Name="AddNewAnnouncement" Location="Resource(wss,addnewitem)" />
           <ParameterBinding Name="NoAnnouncements" Location="Resource(wss,noXinviewofY_LIST)" />
           <ParameterBinding Name="NoAnnouncementsHowTo" Location="Resource(wss,noXinviewofY_ONET_HOME)" />
         </ParameterBindings>
-      </View>
-      <View BaseViewID="1" Type="HTML" WebPartZoneID="Main" DisplayName="$Resources:core,objectiv_schema_mwsidcamlidC24;" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" SetupPath="pages\viewpage.aspx" ImageUrl="/_layouts/15/images/generic.png?rev=23" Url="AllItems.aspx">
+      </View><View BaseViewID="1" Type="HTML" WebPartZoneID="Main" DisplayName="$Resources:core,objectiv_schema_mwsidcamlidC24;" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" SetupPath="pages\viewpage.aspx" ImageUrl="/_layouts/15/images/generic.png?rev=23" Url="AllItems.aspx">
         <Toolbar Type="Standard" />
         <XslLink Default="TRUE">main.xsl</XslLink>
         <JSLink>clienttemplates.js</JSLink>
         <RowLimit Paged="TRUE">30</RowLimit>
         <ViewFields>
 
-          <FieldRef Name="LinkTitle"></FieldRef>
-          <FieldRef Name="Body" />
-          <FieldRef Name="AssignedTo" />
-          <FieldRef Name="Status" />
-          <FieldRef Name="RequestType" />
-        </ViewFields>
+          
+          
+          
+          
+          
+        <FieldRef Name="LinkTitle"></FieldRef><FieldRef Name="Body" /><FieldRef Name="AssignedTo" /><FieldRef Name="Status" /><FieldRef Name="RequestType" /></ViewFields>
         <Query>
           <OrderBy>
 
-            <FieldRef Name="ID"></FieldRef>
-          </OrderBy>
+            
+          <FieldRef Name="ID"></FieldRef></OrderBy>
         </Query>
         <ParameterBindings>
           <ParameterBinding Name="NoAnnouncements" Location="Resource(wss,noXinviewofY_LIST)" />
           <ParameterBinding Name="NoAnnouncementsHowTo" Location="Resource(wss,noXinviewofY_DEFAULT)" />
         </ParameterBindings>
-      </View>
-    </Views>
+      </View></Views>
     <Forms>
       <Form Type="DisplayForm" Url="DispForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
       <Form Type="EditForm" Url="EditForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
