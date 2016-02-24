@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">  
+  <Field
+       ID="{07f649c8-aa19-4eb0-8700-e021ee2bbf5d}"
+       Name="RequestType"
+       DisplayName="Request Type"
+       Type="Text"
+       Required="FALSE"
+       Group="SupportTicket Columns">
+    
+    <CHOICES>
+      <CHOICE>Administration</CHOICE>
+      <CHOICE>Information</CHOICE>
+      <CHOICE>Facilities</CHOICE>
+      <CHOICE>Operations</CHOICE>
+      <CHOICE>Sales</CHOICE>
+      <CHOICE>Marketing</CHOICE>
+    </CHOICES>
+  </Field>
+</Elements>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">  
+  <Field
+       ID="{1728205f-32ed-4d76-9c35-89d4fb047449}"
+       Name="Body"
+       DisplayName="Body"
+       Type="Note"
+       Required="FALSE"
+       Group="SupportTicket Columns">
+  </Field>
+</Elements>

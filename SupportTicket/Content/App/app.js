@@ -5,7 +5,8 @@
     ticketApp = angular.module('ticketApp', [
         'ngRoute',
         'ngAnimate',
-        'ngCookies'
+        'ngCookies',
+        'ngSanitize'
     ])
 
     .run(['$rootScope', function ($rootScope) {

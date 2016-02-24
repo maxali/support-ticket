@@ -1,22 +1,129 @@
-﻿<div ng-controller="TicketDetailController as vm"  style="max-width: 600px;">
-    <h1 class="text-light">
+﻿<div ng-controller="TicketDetailController as vm" class="ctrl-template">
+    <h2 class="">
         {{vm.ticket.Title}}
-    </h1>
-    <hr class="thin bg-grayLighter">
-    
+    </h2>
+    <hr class="thin" style="margin-top: 12px;">
+    <div class="row">
+        <div class="col colspan2">
+            <img src="" style="width:50px; height:50px;" />
+            <span class="tag success" style="width: 100%;">
+                {{vm.ticket.RequestStatus}}
+            </span>
 
-    <div class="sub-header text-light">
-        {{vm.ticket.RequestDescription}} 
+        </div>
+        <div class="col colspan10" style="padding:0 10px 20px 20px; line-height:1.5em">
+            <div class="popover padding2 marker-on-left bg-grayLighter" style="padding: 7px 15px;">
+                <div class="fg-black">
+                    <div>
+                        <h5 class="ng-binding" style="display: inline-block;">
+                            {{vm.ticket.Author.Title}}
+                        </h5>
+                        <h6 class="mif-calendar top text-secondary place-right ng-binding" style="display: inline-block;">
+                            {{vm.ticket.Created | date:"MM/dd/yyyy 'at' h:mma"}}
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            <hr class="thin bg-white">
+            Auto responses can be formatted to pull information from the ticket to personalize the email. osTicket supports placeholder variables such as %{ticket.name.first} which will become the user's first name when the automated response is sent. Auto responses can be edited and customized for each department and associated with help topics.
+            <br />
+            Auto responses can be formatted to pull information from the ticket to personalize the email. osTicket supports placeholder variables such as %{ticket.name.first} which will become the user's first name when the automated response is sent. Auto responses can be edited and customized for each department and associated with help topics.
+            <p>
+                {{vm.ticket.Body}}
+            </p>
+        </div>
     </div>
 
-    <p>
-        More information about this request
-    </p>
+    <!-- R E S P O N S E S -->
+    <div ng-repeat="response in vm.responses">
+        <div class="row box">
+            <div class="col colspan2">
+                <img src="" style="width:50px; height:50px;" />
 
-    <hr class="thin bg-grayLighter">
-
-    <div class="ms-TextField ms-TextField--multiline">
-        <label class="ms-Label">Enter street</label>
-        <textarea class="ms-TextField-field" style="min-height:300px;"></textarea>
+            </div>
+            <div class="col colspan10 box-body">
+                <div class="popover padding2 marker-on-left bg-grayLighter" style="padding: 7px 15px;">
+                    <div class="fg-black">
+                        <div>
+                            <h5 class="ng-binding" style="display: inline-block;">
+                                RE: {{response.Author.Title}}
+                            </h5>
+                            <h6 class="mif-calendar top text-secondary place-right ng-binding" style="display: inline-block;">
+                                {{response.Created | date:"MM/dd/yyyy 'at' h:mma"}}
+                            </h6>
+                        </div>
+                    </div>
+                </div><hr class="thin bg-white">
+                <div ng-bind-html="response.Body" />
+            </div>
+        </div>
     </div>
+    <!-- //R E S P O N S E S-->
+
+    <!-- R E P L Y -->
+    <div class="box">
+        <span class="mif-undo padding10"> Reply</span>
+        <span class="place-right">
+
+            <div class="ms-PeoplePicker single">
+                <label class="ms-Label">Assigned To</label>
+                <div class="ms-PeoplePicker-searchBox">
+                    <input class="ms-PeoplePicker-searchField" ng-model="vm.ticket.searchBox" ng-change="vm.search()" type="text">
+                    <input type="text" class="selectedKey ng-hide" ng-model="vm.ticket.key" />
+                </div>
+                <div class="ms-PeoplePicker-results">
+                    <div class="ms-PeoplePicker-resultGroups">
+                        <ul class="ms-PeoplePicker-resultList"
+                            ng-repeat="person in vm.peoplePicker">
+                            <li class="ms-PeoplePicker-result">
+                                <!-- ng-click="vm.ticket.assignedTo=this.person">-->
+                                <div class="ms-Persona ms-Persona--square">
+                                    <div class="ms-Persona-imageArea">
+                                        <i class="ms-Persona-placeholder ms-Icon ms-Icon--person"></i>
+                                        <img class="ms-Persona-image" ng-src="{{person.image}}">
+                                    </div>
+                                    <div class="ms-Persona-presence"></div>
+                                    <div class="ms-Persona-details">
+                                        <input type="hidden" class="ms-Persona-dataKey" value="{{person.Key}}" />
+                                        <div class="ms-Persona-primaryText">{{person.DisplayText}}</div>
+                                        <div class="ms-Persona-secondaryText">{{person.EntityData.Email}}</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+        </span>
+        <div class="ms-TextField ms-TextField--multiline">
+            <textarea class="ms-TextField-field" min="10"
+                        ng-model="vm.response.Body" id="requestBody"
+                        name="requestBody" style="min-height:150px;"></textarea>
+        </div>
+        <button type="button" ng-click="vm.addResponse()"  class="button primary"><span class="mif-plus"> </span> Submit...</button>
+        <span class="place-right">
+            <div class="ms-Dropdown" tabindex="0" style="min-width:200px;">
+                <label class="ms-Label">Request Status</label>
+                <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
+                <select class="ms-Dropdown-select" id="requestType" name="requestType">
+                    <option value="New">Select request status…</option>
+                    <option value="Open">Open</option>
+                    <option value="Under Review">Under Review</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Done">Done</option>
+                    <option value="Done">Closed</option>
+                </select>
+            </div>
+        </span>
+    </div>
+
 </div>
+<script>
+    $(".ms-Dropdown").Dropdown();
+    $(".ms-TextField").TextField();
+    $(".ms-PeoplePicker").PeoplePicker();
+
+</script>

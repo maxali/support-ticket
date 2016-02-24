@@ -1,4 +1,6 @@
-﻿html, body {
+﻿/*! normalize.css v3.0.2 | MIT License | git.io/normalize */html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+
+html, body {
     height: 100%;
 }
 body {
@@ -6,7 +8,9 @@ body {
 #s4-bodyContainer, #contentRow, #contentBox, div#DeltaPlaceHolderMain {
     height: 100% !important;
 }
-
+.sidebar li a {
+    padding: 1.125rem 1rem .625rem 3.75rem;
+}
 .page-content {
     padding-top: 3.125rem;
     min-height: 100%;
@@ -17,10 +21,12 @@ body {
     min-height: 0;
     height: auto;
 }
-img.profile-image {
+.profile-image {
      width: 50px; 
+     max-height: 50px;
      display:inline;
      vertical-align: top;
+     overflow: hidden;
 }
 
 .ng-enter {
@@ -38,6 +44,12 @@ input.ng-invalid {
 }
 
 @media screen and (max-width: 800px){
+    /*Bug in metro.responsive*/
+    .sidebar li {
+        overflow: hidden;
+    }
+
+
     #cell-sidebar {
         flex-basis: 52px;
     }
@@ -46,9 +58,77 @@ input.ng-invalid {
     }
 }
 
+/*Bug in metro.responsive*/
+@media only screen and (max-width: 640px) {
+    .flex-grid .row {
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
 
+    /* Responsive Long text */
+    .ms-ListItem-primaryText, .ms-ListItem-secondaryText {
+        max-height: 25px;
+        white-space: normal !important;
+    }
+    .ms-ListItem-image {display:none;}
+}
 @media screen and (max-width: 500px) {
     .app-bar-element .profile-image {
         display: none;
     }
+}
+
+
+
+
+.ms-ListItem.is-selectable:hover:before {
+  display: none !important;
+}
+.ms-ListItem.is-selected:before,
+.ms-ListItem.is-selected:hover:before {
+display: none !important;
+}
+.listitem-image-title {
+    padding: 2px;
+    width: 70px;
+    position: absolute;
+    background: #fff;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=70);
+    -moz-opacity: 0.7;
+    -khtml-opacity: 0.7;
+    opacity: 0.7;
+    font-size: 12px;
+}
+.listItem-checkbox {
+    position: absolute;
+    margin: 3px 0 0 0px !important;
+    z-index: 2;
+}
+.listItem-checkbox.checkbox .check {
+    width: 1.1rem;
+    height: 1.1rem;
+    background-color: #fff;
+    border: 1px solid #E4E4FD;
+}
+.box {
+    padding: 10px 10px 20px 10px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.box .box-body {
+    overflow-x: hidden;
+    padding-left:15px; 
+    line-height:1.5em;
+    width: 100%;
+}
+.row.box {
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+    margin: 11px 0;
+}
+.ctrl-template {
+    max-width: 700px;
+    /*white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 580px;*/
 }

@@ -1,5 +1,4 @@
-﻿
-var hostweburl = decodeURIComponent(getQueryStringParameter("SPHostUrl")),
+﻿var hostweburl = decodeURIComponent(getQueryStringParameter("SPHostUrl")),
 appweburl = decodeURIComponent(getQueryStringParameter("SPAppWebUrl")),
 requestDigest = "",
 appweburl = (appweburl.indexOf("#") !== -1) ? appweburl.substr(0, appweburl.indexOf("#")) : appweburl;

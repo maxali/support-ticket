@@ -1,8 +1,8 @@
-﻿<div ng-controller="TicketNewController as vm" style="max-width: 600px;">
+﻿<div ng-controller="TicketNewController as vm"  class="ctrl-template">
     <form name="newTicketForm">
-        <h1 class="text-light">
+        <h3 class="text-light">
             NEW SUPPORT REQUEST
-        </h1>
+        </h3>
         <hr class="thin bg-grayLighter">
 
         <div class="ms-TextField">
@@ -13,26 +13,26 @@
         <div class="ms-TextField ms-TextField--multiline">
             <label class="ms-Label">Request Body</label>
             <textarea class="ms-TextField-field" 
-											ng-model="vm.ticket.requestBody"  id="requestBody"  
-											name="requestBody" style="min-height:300px;">
+                ng-model="vm.ticket.Body"  id="requestBody"  
+                name="requestBody" style="min-height:150px;">
             </textarea>
         </div>
         <div class="ms-Dropdown" tabindex="0">
             <label class="ms-Label">Request Type</label>
             <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
             <select class="ms-Dropdown-select"  ng-model="vm.ticket.requestType"  id="requestType"  name="requestType" >
-                <option value="Choose a sound…">Select request type…</option>
-                <option value="Dog barking">Administration</option>
-                <option value="Wind blowing">Information</option>
-                <option value="Duck quacking">Facilities</option>
-                <option value="Cow mooing">Operations </option>
+                <option value="">Select request type…</option>
+                <option value="Administration">Administration</option>
+                <option value="Information">Information</option>
+                <option value="Facilities">Facilities</option>
+                <option value="Operations">Operations </option>
             </select>
         </div>
         <div class="ms-PeoplePicker single">
             <label class="ms-Label">Assigned To</label>
             <div class="ms-PeoplePicker-searchBox">
                 <input class="ms-PeoplePicker-searchField" ng-model="vm.ticket.searchBox" ng-change="vm.search()" type="text">
-								<input type="text" class="selectedKey ng-hide" ng-model="vm.ticket.key" />
+					<input type="text" class="selectedKey ng-hide" ng-model="vm.ticket.key" />
             </div>
             <div class="ms-PeoplePicker-results">
                 <div class="ms-PeoplePicker-resultGroups">
@@ -58,11 +58,22 @@
                 </div>
             </div>
         </div>
-
+        <div class="ms-Dropdown" tabindex="0">
+            <label class="ms-Label">Request Status</label>
+            <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
+            <select class="ms-Dropdown-select" ng-model="vm.ticket.requestStatus" id="requestStatus" name="requestStatus">
+                <option value="New">Select request status…</option>
+                <option value="Open">Open</option>
+                <option value="Under Review">Under Review</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Done">Done</option>
+                <option value="Done">Closed</option>
+            </select>
+        </div>
         <hr class="thin bg-grayLighter">
         <button class="button" ng-class="{'primary': newTicketForm.$valid }" 
                 ng-click="vm.saveTicket()"><span class="mif-plus"></span> Save</button>
-        <button class="button danger" type="reset"><span class="mif-cancel"></span> Cancel </button>
+        <button class="button danger" ng-click="vm.resetForm()" type="button" formnovalidate><span class="mif-cancel"></span> Cancel </button>
         <hr class="thin bg-grayLighter">
     </form>
 </div>

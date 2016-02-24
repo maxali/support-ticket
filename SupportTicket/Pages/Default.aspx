@@ -1,5 +1,9 @@
 ﻿<!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
     <title>Support Ticket</title>
 
@@ -27,7 +31,7 @@
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
     <script src="../Scripts/angular.min.js"></script>
     <script src="../Scripts/angular-route.min.js"></script>
-    <script src="../Scripts/angular-sanitize.js"></script>
+    <script src="../Scripts/angular-sanitize.min.js"></script>
     <script src="../Scripts/angular-animate.min.js"></script>
     <script src="../Scripts/angular-cookies.min.js"></script>
 
@@ -66,14 +70,14 @@
                 <h4 class="text-light">Quick settings</h4>
 								<div class="flex-grid">
 									<div class="row">
-										<div class="cell colspan2">
+										<div class="cell colspan4">
 											<div class="no-margin-top"  >
-													<img alt="Profile image" ng-if="vm.user.picture" width="50" height="50" ng-src="{{vm.user.picture}}" class="profile-image"/> 
+													<img alt="Profile image" ng-if="vm.user.picture" style="width: 100px; min-width:100px; min-height:100px;" ng-src="{{vm.user.picture}}" class="profile-image"/> 
 											</div>
 										</div>
-										<div class="cell colspan10" style="padding-left: 10px; line-height: 1.5em;">
-											<span>{{vm.user.name}}</span>
-											<span style="font-weight: lighter;">{{vm.user.email}}</span>
+										<div class="cell colspan8" style="padding-left: 10px; line-height: 1.5em;">
+											<span style="font-size: 16px;">{{vm.user.name}}</span>
+											<span style="font-weight: lighter; font-size: 12px;">{{vm.user.email}}</span>
 										</div>
 									</div>
 									<hr style="height:1px;" />
@@ -89,30 +93,29 @@
         </div>
     </div>
 
-
     <div class="page-content" style="margin-top:25px;">
         <div class="flex-grid no-responsive-future" style="height: 100%;">
-            <div class="row" style="height: 100%; border-top: 1px solid rgba( 239,239,239,0.78 );">
-                <div class="cell size-x200" id="cell-sidebar" style="background-color: #71b1d1; height: 100%">
+            <div class="row" style="min-height:100%;border-top: 1px solid rgba( 239,239,239,0.78 );">
+                <div class="cell size-x200" id="cell-sidebar" style="background-color: #71b1d1;min-height: 100%">
                     <ul class="sidebar" ng-controller="MenuController as vm">
-                        <li  ng-class="{'active': vm.currentRoute.status==undefined}"><a href="#/tickets">
-                            <span class="mif-mail icon"></span>
+                        <li  ng-class="{'active': vm.currentRoute.status==undefined}" style="border-right: 1px solid #7cc1de"><a href="#/tickets">
+                            <span class="mif-home icon"></span>
                             <span class="title">Dashboard</span>
                         </a></li>
                         <li ng-class="{'active': vm.currentRoute.status=='open'}"><a href="#/tickets/status/open">
-                            <span class="mif-mail icon"></span>
-                            <span class="title">Open tickets</span>
-                            <span class="counter">2</span>
+                            <span class="mif-suitcase icon"></span>
+                            <span class="title">New tickets</span>
+                            <span class="counter"></span>
                         </a></li>
                         <li ng-class="{'active': vm.currentRoute.status=='closed'}"><a href="#/tickets/status/closed">
-                            <span class="mif-mail-read icon"></span>
-                            <span class="title">Closed tickets</span>
-                            <span class="counter">0</span>
+                            <span class="mif-folder-open icon"></span>
+                            <span class="title">Open tickets</span>
+                            <span class="counter"></span>
                         </a></li>
                         <li ng-class="{'active': vm.currentRoute.status=='urgent'}"><a href="#/tickets/status/urgent">
-                            <span class="mif-drive-eta icon"></span>
-                            <span class="title">Urgent</span>
-                            <span class="counter">2</span>
+                            <span class="mif-organization icon"></span>
+                            <span class="title">Customers</span>
+                            <span class="counter"></span>
                         </a></li>
 
 

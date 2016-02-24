@@ -3,5 +3,6 @@
   <features>
     <featureReference itemId="693b4c81-12f7-44bf-b9a5-958b14d1e42c" />
     <featureReference itemId="323483b8-c649-4f30-8392-100ea3af4910" />
+    <featureReference itemId="0974927a-3744-49d9-939b-90efbc0913a6" />
   </features>
 </package>

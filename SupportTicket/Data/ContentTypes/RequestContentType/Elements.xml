@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <!-- Parent ContentType: Item (0x01) -->
+  <ContentType ID="0x0100A29FF2306EEB495E8695619F8BA8845F" Name="RequestContentType" Group="SupportTicket Request" Description="My Content Type" Inherits="TRUE" Version="0">
+    <FieldRefs>
+      <FieldRef ID="{1728205f-32ed-4d76-9c35-89d4fb047449}" DisplayName="Body" Required="FALSE" Name="Body" />
+      <FieldRef ID="{2355c366-2cb8-4377-b57d-18e0a3141835}" DisplayName="Request Status" Required="TRUE" Name="RequestStatus" />
+      <FieldRef ID="{07f649c8-aa19-4eb0-8700-e021ee2bbf5d}" DisplayName="Request Type" Required="FALSE" Name="RequestType" />
+    </FieldRefs>
+  </ContentType>
+</Elements>

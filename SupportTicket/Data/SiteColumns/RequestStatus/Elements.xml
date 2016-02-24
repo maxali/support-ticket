@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">  
+  <Field
+       ID="{2355c366-2cb8-4377-b57d-18e0a3141835}"
+       Name="RequestStatus"
+       DisplayName="Request Status"
+       Type="Choice"
+       Required="True"
+       Group="SupportTicket Columns">
+    
+    <Default>New</Default>
+    <CHOICES>
+      <CHOICE>Open</CHOICE>
+      <CHOICE>Under Review</CHOICE>
+      <CHOICE>Under Review</CHOICE>
+      <CHOICE>In Progress</CHOICE>
+      <CHOICE>Done</CHOICE>
+      <CHOICE>Closed</CHOICE>
+    </CHOICES>
+  </Field>
+</Elements>

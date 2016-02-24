@@ -5,9 +5,9 @@
     angular
         .module('ticketApp')
         .controller('TicketController', TicketController);
-    TicketController.$inject = ['$scope', 'configService', '$routeParams', '$SPService'];
+    TicketController.$inject = ['$scope', 'configService', '$routeParams', '$SPService', '$location'];
 
-    function TicketController($scope, configService, $routeParams, $SPService) {
+    function TicketController($scope, configService, $routeParams, $SPService, $location) {
         var vm = this,
             $filter = ""; // requests filter
 
@@ -25,10 +25,20 @@
             vm.title = "Support Tickets";
         }
 
+        vm.checkedList = function () {
+            return vm.tickets.filter(function (item) {
+                if (item.checked) return true;
+            }).length > 0;
+        }
+        vm.showTicket = function (reqId) {
+            $location.path('/ticket/' + reqId);
+            
+        }
+
         // load list
         vm.loadRequests = function(){
             $SPService.list
-                .getItems("Request", "ID,Title,RequestType,Body,AssignedTo/Title,Created&$expand=AssignedTo")
+                .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,AssignedTo/Title,AssignedTo/EMail,Created&$expand=AssignedTo&$orderby=Created desc")
                 .then(function (data) {
                     vm.tickets = data.data.d.results;
                     $(".ms-ListItem").ListItem();
@@ -41,5 +51,6 @@
         
 
     }
+
 })();
 

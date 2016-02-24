@@ -1,13 +1,46 @@
-﻿<div ng-controller="TicketController as vm" ng-init="vm.loadRequests()">
+﻿<div ng-controller="TicketController as vm" ng-init="vm.loadRequests()" class="ctrl-template">
 
-    <h1 class="text-light"  style="text-transform: uppercase;" >
+    <h3 class="text-light"  style="text-transform: uppercase;" >
         {{vm.title}}
-    <span class="mif-drive-eta place-right"></span></h1>
+    <span class="mif-drive-eta place-right"></span></h3>
     <hr class="thin bg-grayLighter">
     <a href="#/tickets/new" class="button primary"><span class="mif-plus"> </span> Create...</a>
-    <button class="button success" ><span class="mif-play"></span> Assign </button>
+    <button class="button " 
+            ng-class="{'disabled': vm.checkedList() == false, 'success': vm.checkedList()}"><span class="mif-play"></span> Assign </button>
     <hr class="thin bg-grayLighter">
+
     <div ng-repeat="request in vm.tickets">
+        <div  ng-if="request.AssignedTo.EMail == undefined" class="input-control listItem-checkbox checkbox margin10" data-role="input-control">
+            <label>
+                <input type="checkbox" ng-model="request.checked">
+                <span class="check"></span>
+            </label>
+        </div>
+        <!--'is-unread': (request.RequestStatus == 'New' || request.RequestStatus == null), -->
+        <div class="ms-ListItem  is-selectable" 
+             ng-class="{
+                'ms-ListItem--image': (request.AssignedTo.EMail != undefined),
+                'is-unseen': (request.RequestStatus == 'Open')}"
+             ng-click="vm.showTicket(request.ID)">
+            <div class="ms-ListItem-image" ng-if="request.AssignedTo.EMail != undefined" style="background-color: #767676;">
+                <div class="listitem-image-title">AssignedTo</div>
+                    <img width="70" alt="" src="https://outlook.office365.com/owa/service.svc/s/GetPersonaPhoto?email={{request.AssignedTo.EMail}}&UA=0&size=HR64x64&sc=1456140360229" />
+            </div>
+            <span class="ms-ListItem-primaryText">{{request.Title}}</span> 
+            <span class="ms-ListItem-secondaryText">{{request.RequestType}}</span> 
+            <span class="ms-ListItem-tertiaryText" style="max-height: 15px; white-space:normal;">{{request.Body}}</span> 
+            <span class="ms-ListItem-metaText">{{request.Created | date:"MM/dd/yyyy 'at' h:mma"}}</span>
+            <div class="ms-ListItem-selectionTarget js-toggleSelection"></div>
+            <div class="ms-ListItem-actions">
+                <div class="ms-ListItem-action"></div>
+                <div class="ms-ListItem-action"></div>
+                <div class="ms-ListItem-action"></div>
+                <div class="ms-ListItem-action"></div>
+            </div>
+        </div>
+        <hr class="thin bg-grayLighter">
+        <script>$(".ms-ListItem").ListItem();</script>
+<!-- 
         <div class="ms-ListItem is-unread is-selectable">
             <a href="#ticket/{{request.ID}}">
                 <span class="ms-ListItem-primaryText" >{{request.Title}}</span>
@@ -22,7 +55,7 @@
                 <div class="ms-ListItem-action"></div>
                 <div class="ms-ListItem-action"></div>
             </div>
-        </div><!-- Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See LICENSE in the project root for license information. -->
+        </div>Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See LICENSE in the project root for license information. -->
 
     </div>
 

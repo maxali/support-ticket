@@ -42,6 +42,9 @@
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Content Include="Content\App\controllers\ticket.new.controller.js" />
     <Content Include="Content\App\controllers\ticket.detail.controller.js" />
@@ -51,6 +54,9 @@
     <None Include="Content\matro-ui\fonts\metro.ttf" />
     <None Include="Content\matro-ui\fonts\metro.woff" />
     <None Include="Content\matro-ui\fonts\selection.json" />
+    <None Include="Data\ContentTypes\RequestContentType\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{814dee61-9ebf-4ff3-bbbc-2c3c81062c24}</SharePointProjectItemId>
+    </None>
     <None Include="Data\Customer\CustomerInstance\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{033ba23c-6d07-4fad-a303-b4c6cddbef91}</SharePointProjectItemId>
     </None>
@@ -69,8 +75,26 @@
     <None Include="Data\Request\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{e59a6041-bca4-45dc-9c42-e8dde8d536b4}</SharePointProjectItemId>
     </None>
+    <None Include="Data\Response\ResponseInstance\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{0ae14eac-e7ac-4b01-a2a1-a4e60bc8a79b}</SharePointProjectItemId>
+    </None>
+    <None Include="Data\Response\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{f1e484bb-a10b-4c5d-bfbc-dd88e4dec11c}</SharePointProjectItemId>
+    </None>
+    <None Include="Data\SiteColumns\Body\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{a5554784-f236-4e21-bf25-ec912b14fd48}</SharePointProjectItemId>
+    </None>
+    <None Include="Data\SiteColumns\RequestStatus\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{88d71eb9-80e4-480f-98f7-b84045ca86c4}</SharePointProjectItemId>
+    </None>
+    <None Include="Data\SiteColumns\RequestType\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{e0ba9b60-59c7-4cf4-ae94-f3b50f59bb3c}</SharePointProjectItemId>
+    </None>
     <None Include="Features\Feature2\Feature2.feature">
       <FeatureId>{323483b8-c649-4f30-8392-100ea3af4910}</FeatureId>
+    </None>
+    <None Include="Features\Feature3\Feature3.feature">
+      <FeatureId>{0974927a-3744-49d9-939b-90efbc0913a6}</FeatureId>
     </None>
     <None Include="packages.config" />
     <None Include="Pages\SharePointProjectItem.spdata">
@@ -103,6 +127,7 @@
     <Content Include="Content\matro-ui\js\office-ui-components.js" />
     <Content Include="Content\matro-ui\js\metro.js" />
     <Content Include="Content\matro-ui\js\metro.min.js" />
+    <Content Include="Data\ContentTypes\RequestContentType\Elements.xml" />
     <Content Include="Data\Customer\CustomerInstance\Elements.xml" />
     <Content Include="Data\Customer\Elements.xml" />
     <Content Include="Data\Customer\Schema.xml" />
@@ -112,9 +137,18 @@
     <Content Include="Data\Request\Elements.xml" />
     <Content Include="Data\Request\RequestInstance\Elements.xml" />
     <Content Include="Data\Request\Schema.xml" />
+    <Content Include="Data\Response\Elements.xml" />
+    <Content Include="Data\Response\ResponseInstance\Elements.xml" />
+    <Content Include="Data\Response\Schema.xml" />
+    <Content Include="Data\SiteColumns\Body\Elements.xml" />
+    <Content Include="Data\SiteColumns\RequestStatus\Elements.xml" />
+    <Content Include="Data\SiteColumns\RequestType\Elements.xml" />
     <Content Include="Elements.xml" />
     <Content Include="Features\Feature2\Feature2.Template.xml">
       <DependentUpon>Feature2.feature</DependentUpon>
+    </Content>
+    <Content Include="Features\Feature3\Feature3.Template.xml">
+      <DependentUpon>Feature3.feature</DependentUpon>
     </Content>
     <Content Include="Pages\Elements.xml" />
     <Content Include="Pages\Default.aspx" />
