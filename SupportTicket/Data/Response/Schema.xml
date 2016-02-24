@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<List xmlns:ows="Microsoft SharePoint" Title="Response" FolderCreation="FALSE" Direction="$Resources:Direction;" Url="Lists/Response" BaseType="0" xmlns="http://schemas.microsoft.com/sharepoint/" EnableContentTypes="TRUE">
+  <MetaData>
+    <ContentTypes>
+
+      <ContentType ID="0x01003af0eb86e23e42f699e0e3160a37bebf" Name="ListFieldsContentType">
+        <FieldRefs>
+          <FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" />
+          <FieldRef ID="{6146e742-e52f-4172-882e-4295e0cd6117}" Name="Request" />
+          <FieldRef ID="{1728205f-32ed-4d76-9c35-89d4fb047449}" Name="Body" />
+          <FieldRef ID="{2355c366-2cb8-4377-b57d-18e0a3141835}" Name="RequestStatus" />
+          <FieldRef ID="{07f649c8-aa19-4eb0-8700-e021ee2bbf5d}" Name="RequestType" />
+        </FieldRefs>
+      </ContentType>
+      <ContentTypeRef ID="0x01">
+        <Folder TargetName="Item" />
+      </ContentTypeRef>
+      <ContentTypeRef ID="0x0120" />
+      <ContentType ID="0x0100A29FF2306EEB495E8695619F8BA8845F" Name="RequestContentType" Group="SupportTicket Request" Description="My Content Type" Inherits="TRUE" Version="0">
+        <FieldRefs>
+          <FieldRef ID="{1728205f-32ed-4d76-9c35-89d4fb047449}" DisplayName="Body" Required="FALSE" Name="Body" />
+          <FieldRef ID="{2355c366-2cb8-4377-b57d-18e0a3141835}" DisplayName="Request Status" Required="TRUE" Name="RequestStatus" />
+          <FieldRef ID="{07f649c8-aa19-4eb0-8700-e021ee2bbf5d}" DisplayName="Request Type" Required="FALSE" Name="RequestType" />
+        </FieldRefs>
+      </ContentType>
+    </ContentTypes>
+    <Fields>
+      <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="$Resources:core,Title;" Required="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" />
+      <Field Name="Request" ID="{6146e742-e52f-4172-882e-4295e0cd6117}" DisplayName="Request" Type="Lookup" List="Lists/Request" ShowField="Title" />
+      <Field ID="{1728205f-32ed-4d76-9c35-89d4fb047449}" Name="Body" DisplayName="Body" Type="Note" Required="FALSE" Group="SupportTicket Columns"></Field>
+      <Field ID="{2355c366-2cb8-4377-b57d-18e0a3141835}" Name="RequestStatus" DisplayName="Request Status" Type="Choice" Required="True" Group="SupportTicket Columns">
+        <Default>New</Default>
+        <CHOICES>
+          <CHOICE>Open</CHOICE>
+          <CHOICE>Under Review</CHOICE>
+          <CHOICE>Under Review</CHOICE>
+          <CHOICE>In Progress</CHOICE>
+          <CHOICE>Done</CHOICE>
+          <CHOICE>Closed</CHOICE>
+        </CHOICES>
+      </Field>
+      <Field ID="{07f649c8-aa19-4eb0-8700-e021ee2bbf5d}" Name="RequestType" DisplayName="Request Type" Type="Text" Required="FALSE" Group="SupportTicket Columns">
+        <CHOICES>
+          <CHOICE>Administration</CHOICE>
+          <CHOICE>Information</CHOICE>
+          <CHOICE>Facilities</CHOICE>
+          <CHOICE>Operations</CHOICE>
+          <CHOICE>Sales</CHOICE>
+          <CHOICE>Marketing</CHOICE>
+        </CHOICES>
+      </Field>
+    </Fields>
+    <Views>
+
+
+
+
+      <View BaseViewID="0" Type="HTML" MobileView="TRUE" TabularView="FALSE">
+        <Toolbar Type="Standard" />
+        <XslLink Default="TRUE">main.xsl</XslLink>
+        <RowLimit Paged="TRUE">30</RowLimit>
+        <ViewFields>
+
+
+          <FieldRef Name="LinkTitleNoMenu"></FieldRef>
+        </ViewFields>
+        <Query>
+          <OrderBy>
+
+
+            <FieldRef Name="Modified" Ascending="FALSE"></FieldRef>
+          </OrderBy>
+        </Query>
+        <ParameterBindings>
+          <ParameterBinding Name="AddNewAnnouncement" Location="Resource(wss,addnewitem)" />
+          <ParameterBinding Name="NoAnnouncements" Location="Resource(wss,noXinviewofY_LIST)" />
+          <ParameterBinding Name="NoAnnouncementsHowTo" Location="Resource(wss,noXinviewofY_ONET_HOME)" />
+        </ParameterBindings>
+      </View>
+      <View BaseViewID="1" Type="HTML" WebPartZoneID="Main" DisplayName="$Resources:core,objectiv_schema_mwsidcamlidC24;" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" SetupPath="pages\viewpage.aspx" ImageUrl="/_layouts/15/images/generic.png?rev=23" Url="AllItems.aspx">
+        <Toolbar Type="Standard" />
+        <XslLink Default="TRUE">main.xsl</XslLink>
+        <JSLink>clienttemplates.js</JSLink>
+        <RowLimit Paged="TRUE">30</RowLimit>
+        <ViewFields>
+
+
+
+
+
+
+          <FieldRef Name="LinkTitle"></FieldRef>
+          <FieldRef Name="Request" />
+          <FieldRef Name="Body" />
+          <FieldRef Name="RequestStatus" />
+          <FieldRef Name="RequestType" />
+        </ViewFields>
+        <Query>
+          <OrderBy>
+
+
+            <FieldRef Name="ID"></FieldRef>
+          </OrderBy>
+        </Query>
+        <ParameterBindings>
+          <ParameterBinding Name="NoAnnouncements" Location="Resource(wss,noXinviewofY_LIST)" />
+          <ParameterBinding Name="NoAnnouncementsHowTo" Location="Resource(wss,noXinviewofY_DEFAULT)" />
+        </ParameterBindings>
+      </View>
+    </Views>
+    <Forms>
+      <Form Type="DisplayForm" Url="DispForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+      <Form Type="EditForm" Url="EditForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+      <Form Type="NewForm" Url="NewForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+    </Forms>
+  </MetaData>
+</List>
