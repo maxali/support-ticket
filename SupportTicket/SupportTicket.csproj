@@ -22,6 +22,8 @@
     <WorkflowPartId>{48a5183c-3acf-4e06-96a7-d3612093c02d}</WorkflowPartId>
     <CspkgPartId>{ebcaff59-9850-4198-a97b-bc8934134a5d}</CspkgPartId>
     <SqlPackagePartId>{feb7e1d5-f0ca-4fa4-9642-8c5fb5a23e65}</SqlPackagePartId>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,10 +48,19 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Content\App\app.scripts.js" />
+    <Content Include="Content\App\app.scripts.min.js">
+      <DependentUpon>app.scripts.js</DependentUpon>
+    </Content>
+    <Content Include="Content\App\bundle.js" />
+    <Content Include="Content\App\bundle.min.js">
+      <DependentUpon>bundle.js</DependentUpon>
+    </Content>
     <Content Include="Content\App\controllers\ticket.new.controller.js" />
     <Content Include="Content\App\controllers\ticket.detail.controller.js" />
     <Content Include="Content\App\services\SPHttp.js" />
     <Content Include="Content\App\services\config.service.js" />
+    <None Include="bundleconfig.json" />
     <None Include="Content\matro-ui\fonts\metro.eot" />
     <None Include="Content\matro-ui\fonts\metro.ttf" />
     <None Include="Content\matro-ui\fonts\metro.woff" />

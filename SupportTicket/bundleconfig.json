@@ -1,0 +1,29 @@
+[
+  {
+    "outputFileName": "Content/App/app.scripts.js",
+    "inputFiles": [
+      "Scripts/jquery-1.9.1.js",
+      "Scripts/angular.js",
+      "Scripts/angular-sanitize.js",
+      "Scripts/angular-route.js",
+      "Scripts/angular-cookies.js",
+      "Scripts/angular-animate.js",
+      "Scripts/App.js",
+      "Content/matro-ui/js/office-ui-components.js",
+      "Content/matro-ui/js/metro.js",
+      "Scripts/jquery.fabric.js",
+      "Content/App/app.js",
+      "Content/App/router.js",
+      "Content/App/config.js",
+      "Content/App/services/config.service.js",
+      "Content/App/services/SPHttp.js",
+      "Content/App/services/SPListService.js",
+      "Content/App/services/spUtilService.js",
+      "Content/App/services/TicketDataService.js",
+      "Content/App/controllers/header.controller.js",
+      "Content/App/controllers/ticket.controller.js",
+      "Content/App/controllers/ticket.detail.controller.js",
+      "Content/App/controllers/ticket.new.controller.js"
+    ]
+  }
+]

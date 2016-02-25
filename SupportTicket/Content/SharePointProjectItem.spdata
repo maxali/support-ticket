@@ -39,5 +39,9 @@
     <ProjectItemFile Source="App\controllers\ticket.detail.controller.js" Target="Content\App\controllers\" Type="ElementFile" />
     <ProjectItemFile Source="index.html" Target="Content\" Type="ElementFile" />
     <ProjectItemFile Source="App\controllers\ticket.new.controller.js" Target="Content\App\controllers\" Type="ElementFile" />
+    <ProjectItemFile Source="App\bundle.js" Target="Content\App\" Type="ElementFile" />
+    <ProjectItemFile Source="App\bundle.min.js" Target="Content\App\" Type="ElementFile" />
+    <ProjectItemFile Source="App\app.scripts.js" Target="Content\App\" Type="ElementFile" />
+    <ProjectItemFile Source="App\app.scripts.min.js" Target="Content\App\" Type="ElementFile" />
   </Files>
 </ProjectItem>
