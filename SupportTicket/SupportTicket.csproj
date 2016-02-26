@@ -52,10 +52,6 @@
     <Content Include="Content\App\app.scripts.min.js">
       <DependentUpon>app.scripts.js</DependentUpon>
     </Content>
-    <Content Include="Content\App\bundle.js" />
-    <Content Include="Content\App\bundle.min.js">
-      <DependentUpon>bundle.js</DependentUpon>
-    </Content>
     <Content Include="Content\App\controllers\ticket.new.controller.js" />
     <Content Include="Content\App\controllers\ticket.detail.controller.js" />
     <Content Include="Content\App\services\SPHttp.js" />

@@ -28,7 +28,7 @@
             </div>
             <span class="ms-ListItem-primaryText">{{request.Title}}</span> 
             <span class="ms-ListItem-secondaryText">{{request.RequestType}}</span> 
-            <span class="ms-ListItem-tertiaryText" style="max-height: 15px; white-space:normal;">{{request.Body}}</span> 
+            <span class="ms-ListItem-tertiaryText" ng-bind-html="request.Body" style="max-height: 15px; white-space:normal;"></span> 
             <span class="ms-ListItem-metaText">{{request.Created | date:"MM/dd/yyyy 'at' h:mma"}}</span>
             <div class="ms-ListItem-selectionTarget js-toggleSelection"></div>
             <div class="ms-ListItem-actions">

@@ -132,3 +132,7 @@ display: none !important;
     text-overflow: ellipsis;
     max-width: 580px;*/
 }
+div[contenteditable='true'] {
+    border: 1px solid #adadad;
+    padding: 10px;
+}

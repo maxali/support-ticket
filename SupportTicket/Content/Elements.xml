@@ -38,8 +38,6 @@
     <File Path="Content\App\controllers\ticket.detail.controller.js" Url="Content/App/controllers/ticket.detail.controller.js" ReplaceContent="TRUE" />
     <File Path="Content\index.html" Url="Content/index.html" ReplaceContent="TRUE" />
     <File Path="Content\App\controllers\ticket.new.controller.js" Url="Content/App/controllers/ticket.new.controller.js" ReplaceContent="TRUE" />
-    <File Path="Content\App\bundle.js" Url="Content/App/bundle.js" ReplaceContent="TRUE" />
-    <File Path="Content\App\bundle.min.js" Url="Content/App/bundle.min.js" ReplaceContent="TRUE" />
     <File Path="Content\App\app.scripts.js" Url="Content/App/app.scripts.js" ReplaceContent="TRUE" />
     <File Path="Content\App\app.scripts.min.js" Url="Content/App/app.scripts.min.js" ReplaceContent="TRUE" />
   </Module>

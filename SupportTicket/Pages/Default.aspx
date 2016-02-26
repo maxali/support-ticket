@@ -27,9 +27,8 @@
     <script type="text/javascript" src="/_layouts/15/SP.init.js"></script>
     <script type="text/javascript" src="/_layouts/15/SP.core.js"></script>
     <script type="text/javascript" src="/_layouts/15/SP.RequestExecutor.js"></script>
-    
-    <script type="text/javascript" src="../Content/App/app.scripts.min.js"></script>
-    <!--
+   
+
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
     <script src="../Scripts/angular.min.js"></script>
     <script src="../Scripts/angular-route.min.js"></script>
@@ -40,9 +39,9 @@
     <script type="text/javascript" src="../Scripts/App.js"></script>
     <script src="../Content/matro-ui/js/office-ui-components.js"></script>    
     <script src="../Content/matro-ui/js/metro.js"></script>
-    -->
+ 
     <!-- Angular ticketApp files -->
-    <!--
+ 
     <script src="../Content/App/app.js"></script>
 
     <script src="../Content/App/router.js"></script>
@@ -55,7 +54,8 @@
     <script src="../Content/App/controllers/ticket.controller.js"></script>
     <script src="../Content/App/controllers/ticket.detail.controller.js"></script>
     <script src="../Content/App/controllers/ticket.new.controller.js"></script>
-    -->
+   
+
 </head>
 <body style="background: rgba(222, 222, 222, 0.56);">
     <div class="app-bar fixed-top darcula" data-role="appbar" ng-controller="HeaderController as vm">

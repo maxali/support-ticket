@@ -5,15 +5,20 @@
     angular
         .module('ticketApp')
         .controller('TicketNewController', TicketNewController);
-    TicketNewController.$inject = ['$scope', '$SPHttp', 'configService', '$SPService', '$routeParams'];
+    TicketNewController.$inject = ['$scope', '$SPHttp', 'configService', '$SPService', '$routeParams', '$location'];
 	
-    function TicketNewController($scope, $SPHttp, configService, $SPService, $routeParams) {
+    function TicketNewController($scope, $SPHttp, configService, $SPService, $routeParams, $location) {
         var vm = this;
 				// peoplPicker control list
         vm.peoplePicker = [];
         vm.ticket = {};
-        vmTicketReset();
-        function vmTicketReset() {
+        initTicket();
+
+        vm.resetForm = initTicket;
+
+        vm.saveTicket = saveTicket; 
+        
+        function initTicket() {
             vm.ticket = {
                 requestTitle: "",
                 key: "",
@@ -23,37 +28,35 @@
             };
         }
 
-        vm.resetForm = function () {
-            
-            vmTicketReset();
-        }
-
-        vm.saveTicket = function () {
+        function saveTicket() {
             if (!vm.ticket.requestTitle)
-        	    return false;
+                return false;
 
             var requestData = {
-        		__metadata: { 'type': 'SP.Data.RequestListItem' },
-        		Title: vm.ticket.requestTitle,
-        		Body: vm.ticket.Body
+                __metadata: { 'type': 'SP.Data.RequestListItem' },
+                Title: vm.ticket.requestTitle,
+                Body: vm.ticket.Body
             };
 
             requestData.RequestType = (vm.ticket.requestType !== "") ? vm.ticket.requestType : null;
             requestData.RequestStatus = (vm.ticket.requestStatus !== "") ? vm.ticket.requestStatus : null;
-            requestData.AssignedToId = (vm.ticket.assignedTo > 0) ? vm.ticket.assignedTo : null; 
-            
+            requestData.AssignedToId = (vm.ticket.assignedTo > 0) ? vm.ticket.assignedTo : null;
+
             $SPHttp.post({
-        		url: apiBase + "web/lists/getByTitle('Request')/Items",
-						data: requestData
+                url: apiBase + "web/lists/getByTitle('Request')/Items",
+                data: requestData
             }).then(function (data) {
-        		if (data.statusText == "Created")
-        			$.Notify({
-        				caption: 'Successful',
-        				content: 'Request added successfully.',
-        				type: 'success'
-        			});
+                if (data.statusText == "Created")
+                    $.Notify({
+                        caption: 'Successful',
+                        content: 'Request added successfully.',
+                        type: 'success'
+                    });
+
+                $location.path('/ticket/' + data.data.d.Id);
+
             }, function (error) {
-        		console.log(error);
+                console.log(error);
             });
         }
 
@@ -95,4 +98,6 @@
     }
 
 })();
+
+
 

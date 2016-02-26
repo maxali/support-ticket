@@ -60015,12 +60015,12 @@ function getCurrentUser(cb) {
     var currentUser = web.get_currentUser();
     context.load(currentUser);
     context.executeQueryAsync(function (data) {
-        console.log(currentUser.get_loginName());
-
+       
         var userInfo = {
             user: {
                 id: currentUser.get_id(),
                 name: currentUser.get_title(),
+                loginName: currentUser.get_loginName(),
                 email: currentUser.get_email(),
                 picture: "https://outlook.office365.com/owa/service.svc/s/GetPersonaPhoto?email=" + currentUser.get_email() + "&UA=0&size=HR64x64&sc=1456140360229" //scriptbase + "userphoto.aspx?size=L&username=" + currentUser.get_email()
             }
@@ -60064,7 +60064,8 @@ function getRequestDigest() {
     function $SPHttp(configService, $http) {
         var service = {
             get: get,
-            post: post
+            post: post,
+            update: update
         };
 
         function get(options) {
@@ -60091,6 +60092,21 @@ function getRequestDigest() {
             });
         }
 
+        function update(options) {
+            return $http({
+                method: 'POST',
+                url: options.url,
+                headers: options.headers || {
+                    "Accept": "application/json; odata=verbose",
+                    "Content-Type": "application/json; odata=verbose",
+                    "X-RequestDigest": requestDigest,
+                    "X-Http-Method": "PATCH",
+                    "If-Match": "*"
+
+                },
+                data: options.data || ""
+            });
+        }
         return service;
     }
 })();
@@ -60365,33 +60381,62 @@ function getRequestDigest() {
         var vm = this;
 
         vm.ticket = {};     // current request ticket
-        vm.response = {};   // reply 
+        vm.response = {};   // current reply 
         vm.responses = [];  // list of responses
-
-
-        // load list
-        vm.loadRequest = function(ticket){
-            $SPService.list
-                .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,Created,AssignedTo/Title,Author/Id,Author/Title&$expand=AssignedTo,Author", "Id eq " + $routeParams.id)
-                .then(function (data) {
-                    vm.ticket = data.data.d.results[0] || {};
-
-                    if (vm.ticket.ID)
-                        vm.loadResponses(vm.ticket.ID);
-                })
+        vm.ticketStatus = { // if currentUser is the owner
+            currentUser: "// from configService",
+            ticketOwner: "// from vm.ticket.Author.Name ",
+            isEditable: function () {
+                return this.currentUser === this.ticketOwner 
+            },
+            isEditing: false
         }
+
+        vm.saveOrEdit = function () {
+            if (vm.ticketStatus.isEditing) {
+                vm.ticketStatus.isEditing = false;
+
+                var responseData = {
+                    __metadata: { 'type': 'SP.Data.RequestListItem' },
+                    Body: $('#ticket-body').
+                        (),
+                }
+
+                $SPHttp.update({
+                    url: apiBase + "web/lists/getByTitle('Request')/Items(" + vm.ticket.Id+")",
+                    data: responseData
+                }).then(function (data) {
+                    if (data.statusText == "Created") {
+                        //vm.responses.push()
+                        console.log(data)
+                      
+                    }
+                }, function (error) {
+                    console.error(error);
+                });
+                console.log("Saving this"+$('#ticket-body').html());
+            } else {
+                vm.ticketStatus.isEditing = true;
+            }
+
+        }
+
+
+        vm.loadRequest = loadRequest; 
         vm.loadRequest();
-        
-        // load responses
-        vm.loadResponses = function (reqId) {
+        vm.loadResponses = loadResponses; 
+        vm.addResponse = addResponse;
+
+
+        function loadResponses(reqId) {
             $SPService.list
-                .getItems("Response", "ID,Title,RequestStatus,Body,Created,Request/Id,Author/Id,Author/Title&$expand=Author,Request", "Request/Id eq " + $routeParams.id)
+                .getItems("Response", "ID,Title,RequestStatus,Body,Created,Request/Id,Author/Id,Author/Title,Author/Name&$expand=Author,Request", "Request/Id eq " + $routeParams.id)
                 .then(function (data) {
                     vm.responses = data.data.d.results || [];
                 })
         }
 
-        vm.addResponse = function () {
+        function addResponse() {
             if (vm.response.Body.length < 10) return;
 
             var responseData = {
@@ -60420,7 +60465,22 @@ function getRequestDigest() {
             })
         }
 
+        function loadRequest(ticket) {
+            $SPService.list
+                .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,Created,AssignedTo/Title,Author/Id,Author/Title,Author/Name&$expand=AssignedTo,Author", "Id eq " + $routeParams.id)
+                .then(function (data) {
+                    vm.ticket = data.data.d.results[0] || {};
+                    vm.ticketStatus.ticketOwner = vm.ticket.Author.Name;
 
+                    if (vm.ticket.ID)
+                        vm.loadResponses(vm.ticket.ID);
+                })
+        }
+
+        vm.ticketStatus.currentUser = (configService.user) ? configService.user.loginName : null;
+        configService.registerObserverCallback(function () {
+            vm.ticketStatus.currentUser = configService.user.loginName;
+        }); // update if changed
 
     }
 })();
@@ -60433,15 +60493,20 @@ function getRequestDigest() {
     angular
         .module('ticketApp')
         .controller('TicketNewController', TicketNewController);
-    TicketNewController.$inject = ['$scope', '$SPHttp', 'configService', '$SPService', '$routeParams'];
+    TicketNewController.$inject = ['$scope', '$SPHttp', 'configService', '$SPService', '$routeParams', '$location'];
 	
-    function TicketNewController($scope, $SPHttp, configService, $SPService, $routeParams) {
+    function TicketNewController($scope, $SPHttp, configService, $SPService, $routeParams, $location) {
         var vm = this;
 				// peoplPicker control list
         vm.peoplePicker = [];
         vm.ticket = {};
-        vmTicketReset();
-        function vmTicketReset() {
+        initTicket();
+
+        vm.resetForm = initTicket;
+
+        vm.saveTicket = saveTicket; 
+        
+        function initTicket() {
             vm.ticket = {
                 requestTitle: "",
                 key: "",
@@ -60451,37 +60516,35 @@ function getRequestDigest() {
             };
         }
 
-        vm.resetForm = function () {
-            
-            vmTicketReset();
-        }
-
-        vm.saveTicket = function () {
+        function saveTicket() {
             if (!vm.ticket.requestTitle)
-        	    return false;
+                return false;
 
             var requestData = {
-        		__metadata: { 'type': 'SP.Data.RequestListItem' },
-        		Title: vm.ticket.requestTitle,
-        		Body: vm.ticket.Body
+                __metadata: { 'type': 'SP.Data.RequestListItem' },
+                Title: vm.ticket.requestTitle,
+                Body: vm.ticket.Body
             };
 
             requestData.RequestType = (vm.ticket.requestType !== "") ? vm.ticket.requestType : null;
             requestData.RequestStatus = (vm.ticket.requestStatus !== "") ? vm.ticket.requestStatus : null;
-            requestData.AssignedToId = (vm.ticket.assignedTo > 0) ? vm.ticket.assignedTo : null; 
-            
+            requestData.AssignedToId = (vm.ticket.assignedTo > 0) ? vm.ticket.assignedTo : null;
+
             $SPHttp.post({
-        		url: apiBase + "web/lists/getByTitle('Request')/Items",
-						data: requestData
+                url: apiBase + "web/lists/getByTitle('Request')/Items",
+                data: requestData
             }).then(function (data) {
-        		if (data.statusText == "Created")
-        			$.Notify({
-        				caption: 'Successful',
-        				content: 'Request added successfully.',
-        				type: 'success'
-        			});
+                if (data.statusText == "Created")
+                    $.Notify({
+                        caption: 'Successful',
+                        content: 'Request added successfully.',
+                        type: 'success'
+                    });
+
+                $location.path('/ticket/' + data.data.d.Id);
+
             }, function (error) {
-        		console.log(error);
+                console.log(error);
             });
         }
 
