@@ -103,12 +103,12 @@ function getCurrentUser(cb) {
     var currentUser = web.get_currentUser();
     context.load(currentUser);
     context.executeQueryAsync(function (data) {
-        console.log(currentUser.get_loginName());
-
+       
         var userInfo = {
             user: {
                 id: currentUser.get_id(),
                 name: currentUser.get_title(),
+                loginName: currentUser.get_loginName(),
                 email: currentUser.get_email(),
                 picture: "https://outlook.office365.com/owa/service.svc/s/GetPersonaPhoto?email=" + currentUser.get_email() + "&UA=0&size=HR64x64&sc=1456140360229" //scriptbase + "userphoto.aspx?size=L&username=" + currentUser.get_email()
             }

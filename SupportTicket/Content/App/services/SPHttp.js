@@ -9,7 +9,8 @@
     function $SPHttp(configService, $http) {
         var service = {
             get: get,
-            post: post
+            post: post,
+            update: update
         };
 
         function get(options) {
@@ -36,6 +37,21 @@
             });
         }
 
+        function update(options) {
+            return $http({
+                method: 'POST',
+                url: options.url,
+                headers: options.headers || {
+                    "Accept": "application/json; odata=verbose",
+                    "Content-Type": "application/json; odata=verbose",
+                    "X-RequestDigest": requestDigest,
+                    "X-Http-Method": "PATCH",
+                    "If-Match": "*"
+
+                },
+                data: options.data || ""
+            });
+        }
         return service;
     }
 })();
