@@ -50,6 +50,9 @@
     <Content Include="Content\App\controllers\ticket.detail.controller.js" />
     <Content Include="Content\App\services\SPHttp.js" />
     <Content Include="Content\App\services\config.service.js" />
+    <Content Include="Support System\Elements.xml">
+      <OpcRelationship>feature-elementmanifest</OpcRelationship>
+    </Content>
     <None Include="Content\matro-ui\fonts\metro.eot" />
     <None Include="Content\matro-ui\fonts\metro.ttf" />
     <None Include="Content\matro-ui\fonts\metro.woff" />
@@ -156,6 +159,9 @@
     <None Include="Scripts\angular-cookies.min.js.map" />
     <None Include="SharePointProjectItem.spdata">
       <SharePointProjectItemId>{bccc60cd-c82d-48e6-ab1a-fd73bcce12b1}</SharePointProjectItemId>
+    </None>
+    <None Include="Support System\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{1f8b98ab-2c40-4eb7-9df6-475235ae9ce1}</SharePointProjectItemId>
     </None>
   </ItemGroup>
   <ItemGroup>

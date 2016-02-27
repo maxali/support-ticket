@@ -5,13 +5,13 @@
     <hr class="thin" style="margin-top: 12px;">
     <div class="row">
         <div class="col colspan2">
-            <img src="" style="width:50px; height:50px;" />
+            <img src="" style="width:50px; height:50px; display:block;" />
             <span class="tag success" style="width: 100%;">
                 {{vm.ticket.RequestStatus}}
             </span>
 
         </div>
-        <div class="col colspan10" style="padding:0 10px 20px 20px; line-height:1.5em">
+        <div class="col colspan10  box-body" style="padding:0 10px 20px 20px; line-height:1.5em">
             <div class="popover padding2 marker-on-left bg-grayLighter" style="padding: 7px 15px;">
                 <div class="fg-black">
                     <div>
@@ -25,12 +25,9 @@
                 </div>
             </div>
             <hr class="thin bg-white">
-            Auto responses can be formatted to pull information from the ticket to personalize the email. osTicket supports placeholder variables such as %{ticket.name.first} which will become the user's first name when the automated response is sent. Auto responses can be edited and customized for each department and associated with help topics.
-            <br />
-            Auto responses can be formatted to pull information from the ticket to personalize the email. osTicket supports placeholder variables such as %{ticket.name.first} which will become the user's first name when the automated response is sent. Auto responses can be edited and customized for each department and associated with help topics.
-            <p>
+            <div>
                 {{vm.ticket.Body}}
-            </p>
+            </div>
         </div>
     </div>
 
