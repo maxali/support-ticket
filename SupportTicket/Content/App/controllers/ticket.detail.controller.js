@@ -5,14 +5,15 @@
     angular
         .module('ticketApp')
         .controller('TicketDetailController', TicketDetailController);
-    TicketDetailController.$inject = ['$scope', 'configService', '$SPService', '$SPHttp', '$routeParams'];
+    TicketDetailController.$inject = ['$scope','spUtil', 'configService', '$SPService', '$SPHttp', '$routeParams'];
 
-    function TicketDetailController($scope, configService, $SPService, $SPHttp, $routeParams) {
+    function TicketDetailController($scope, spUtil, configService, $SPService, $SPHttp, $routeParams) {
         var vm = this;
 
         vm.ticket = {};     // current request ticket
         vm.response = {};   // current reply 
         vm.responses = [];  // list of responses
+				
         vm.ticketStatus = { // if currentUser is the owner
             currentUser: "// from configService",
             ticketOwner: "// from vm.ticket.Author.Name ",
@@ -28,10 +29,9 @@
 
                 var responseData = {
                     __metadata: { 'type': 'SP.Data.RequestListItem' },
-                    Body: $('#ticket-body').
-                        (),
+                    Body: $('#ticket-body').html(),
                 }
-
+									
                 $SPHttp.update({
                     url: apiBase + "web/lists/getByTitle('Request')/Items(" + vm.ticket.Id+")",
                     data: responseData
@@ -44,7 +44,6 @@
                 }, function (error) {
                     console.error(error);
                 });
-                console.log("Saving this"+$('#ticket-body').html());
             } else {
                 vm.ticketStatus.isEditing = true;
             }
@@ -97,10 +96,14 @@
 
         function loadRequest(ticket) {
             $SPService.list
-                .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,Created,AssignedTo/Title,Author/Id,Author/Title,Author/Name&$expand=AssignedTo,Author", "Id eq " + $routeParams.id)
+                .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,Created,AssignedTo/Title,Author/Id,Author/Title,Author/Name,Author/EMail&$expand=AssignedTo,Author", "Id eq " + $routeParams.id)
                 .then(function (data) {
                     vm.ticket = data.data.d.results[0] || {};
                     vm.ticketStatus.ticketOwner = vm.ticket.Author.Name;
+
+                    spUtil.getPictureByUser(vm.ticket.Author.Name, function (pic) {
+                    		vm.ticket.pictureUrl = pic;
+                    });
 
                     if (vm.ticket.ID)
                         vm.loadResponses(vm.ticket.ID);

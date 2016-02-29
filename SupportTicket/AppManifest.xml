@@ -16,5 +16,9 @@
   </AppPrincipal>
   <AppPermissionRequests>
     <AppPermissionRequest Scope="http://sharepoint/content/sitecollection/web" Right="Read" />
+    <AppPermissionRequest Scope="http://sharepoint/social/tenant" Right="Read" />
   </AppPermissionRequests>
+  <AppPrerequisites>
+    <AppPrerequisite Type="Capability" ID="A83C8D70-71DE-4260-9FB8-677418EB47F2" />
+  </AppPrerequisites>
 </App>

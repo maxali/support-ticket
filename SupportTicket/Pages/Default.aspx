@@ -58,7 +58,7 @@
 
 </head>
 <body style="background: rgba(222, 222, 222, 0.56);">
-    <div class="app-bar fixed-top darcula" data-role="appbar" ng-controller="HeaderController as vm">
+    <div class="app-bar fixed-top darcula" data-role="appbar" ng-controller="HeaderController as header">
         <a class="app-bar-element branding" href="{{vm.hostUrl}}">SharePoint </a>
         <span class="app-bar-divider"></span>
         <ul class="app-bar-menu">
@@ -67,7 +67,7 @@
 
         <div class="app-bar-element no-padding-right place-right">
             <span class="dropdown-toggle"><span class="mif-cog"></span>
-                {{vm.user.name}}             
+                {{header.user.name}}             
             </span>
             <div class="app-bar-drop-container padding10 place-right no-margin-top block-shadow fg-dark" data-role="dropdown" data-no-close="true" style="width: 320px">
                 <h4 class="text-light">Quick settings</h4>
@@ -79,8 +79,8 @@
 											</div>
 										</div>
 										<div class="cell colspan8" style="padding-left: 10px; line-height: 1.5em;">
-											<span style="font-size: 16px;">{{vm.user.name}}</span>
-											<span style="font-weight: lighter; font-size: 12px;">{{vm.user.email}}</span>
+											<span style="font-size: 16px;">{{header.user.name}}</span>
+											<span style="font-weight: lighter; font-size: 12px;">{{header.user.email}}</span>
 										</div>
 									</div>
 									<hr style="height:1px;" />
@@ -105,12 +105,12 @@
                             <span class="mif-home icon"></span>
                             <span class="title">Dashboard</span>
                         </a></li>
-                        <li ng-class="{'active': vm.currentRoute.status=='open'}"><a href="#/tickets/status/open">
+                        <li ng-class="{'active': vm.currentRoute.status=='new'}"><a href="#/tickets/status/new">
                             <span class="mif-suitcase icon"></span>
-                            <span class="title">New tickets</span>
+                            <span class="title">New Tickets</span>
                             <span class="counter"></span>
                         </a></li>
-                        <li ng-class="{'active': vm.currentRoute.status=='closed'}"><a href="#/tickets/status/closed">
+                        <li ng-class="{'active': vm.currentRoute.status=='open'}"><a href="#/tickets/status/open">
                             <span class="mif-folder-open icon"></span>
                             <span class="title">Open tickets</span>
                             <span class="counter"></span>

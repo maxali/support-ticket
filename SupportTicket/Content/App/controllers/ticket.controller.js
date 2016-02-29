@@ -19,8 +19,8 @@
         configService.registerObserverCallback(updateUser); // update if changed
 
         if ($routeParams.status) {
-            vm.title = $routeParams.status + " tickets";
-            $filter = "status eq " + $routeParams.status;
+        		vm.title = $routeParams.status + " tickets";
+            $filter = "&$filter=RequestStatus eq '" + $routeParams.status + "'";
         } else {
             vm.title = "Support Tickets";
         }
@@ -38,7 +38,7 @@
         // load list
         vm.loadRequests = function(){
             $SPService.list
-                .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,AssignedTo/Title,AssignedTo/EMail,Created&$expand=AssignedTo&$orderby=Created desc")
+                .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,AssignedTo/Title,AssignedTo/EMail,Created&$expand=AssignedTo&$orderby=Created desc"+$filter)
                 .then(function (data) {
                     vm.tickets = data.data.d.results;
                     $(".ms-ListItem").ListItem();

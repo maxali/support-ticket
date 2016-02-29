@@ -60208,12 +60208,49 @@ function getRequestDigest() {
 
     angular
       .module('ticketApp')
-      .factory('spUtil', ['configService', spUtil]);
+      .factory('spUtil', ['configService', '$SPHttp','$q', spUtil]);
 
-    function spUtil(configService) {
+    function spUtil(configService, $SPHttp, $q) {
         var service = {
-            listGetEndpoint: listGetEndpoint
+        	listGetEndpoint: listGetEndpoint,
+        	getPictureByUser: getPictureByUser
         };
+				
+        function getPictureByUser(accountName, cb) {
+        	var executor = new SP.RequestExecutor(appweburl);
+
+        	var picCacheId = "pic" + accountName;
+        	var picCache = localStorage.getItem(picCacheId);
+        	if (picCache) {
+        		cb(picCache);
+        		return;
+        	}
+
+        	executor.executeAsync(
+							{
+								url:
+										appweburl +
+										"/_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@v)" +
+										"?$select=DisplayName,Email,PictureUrl" +
+										"&@v='" + encodeURIComponent(accountName) + "'&@target='" + hostweburl + "'",
+								method: "GET",
+								headers: { "Accept": "application/json; odata=verbose", "Content-Type": "application/json; odata=verbose" },
+								success: function (data) {
+									var dataBody = JSON.parse(data.body);
+
+									// cache pictureUrl
+									if (dataBody.d.PictureUrl)
+										localStorage.setItem(picCacheId, dataBody.d.PictureUrl);
+
+									// return pictureUrl
+									cb(dataBody.d.PictureUrl);
+								},
+								error: function(err) {
+									cb(err)
+								}
+							}
+					);
+        }
 
         function listItemGetEndpoint(listTitle, itemId, $select, $filter) {
             var url = "";
@@ -60332,8 +60369,8 @@ function getRequestDigest() {
         configService.registerObserverCallback(updateUser); // update if changed
 
         if ($routeParams.status) {
-            vm.title = $routeParams.status + " tickets";
-            $filter = "status eq " + $routeParams.status;
+        		vm.title = $routeParams.status + " tickets";
+            $filter = "&$filter=RequestStatus eq '" + $routeParams.status + "'";
         } else {
             vm.title = "Support Tickets";
         }
@@ -60351,7 +60388,7 @@ function getRequestDigest() {
         // load list
         vm.loadRequests = function(){
             $SPService.list
-                .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,AssignedTo/Title,AssignedTo/EMail,Created&$expand=AssignedTo&$orderby=Created desc")
+                .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,AssignedTo/Title,AssignedTo/EMail,Created&$expand=AssignedTo&$orderby=Created desc"+$filter)
                 .then(function (data) {
                     vm.tickets = data.data.d.results;
                     $(".ms-ListItem").ListItem();
@@ -60375,14 +60412,15 @@ function getRequestDigest() {
     angular
         .module('ticketApp')
         .controller('TicketDetailController', TicketDetailController);
-    TicketDetailController.$inject = ['$scope', 'configService', '$SPService', '$SPHttp', '$routeParams'];
+    TicketDetailController.$inject = ['$scope','spUtil', 'configService', '$SPService', '$SPHttp', '$routeParams'];
 
-    function TicketDetailController($scope, configService, $SPService, $SPHttp, $routeParams) {
+    function TicketDetailController($scope, spUtil, configService, $SPService, $SPHttp, $routeParams) {
         var vm = this;
 
         vm.ticket = {};     // current request ticket
         vm.response = {};   // current reply 
         vm.responses = [];  // list of responses
+				
         vm.ticketStatus = { // if currentUser is the owner
             currentUser: "// from configService",
             ticketOwner: "// from vm.ticket.Author.Name ",
@@ -60398,10 +60436,9 @@ function getRequestDigest() {
 
                 var responseData = {
                     __metadata: { 'type': 'SP.Data.RequestListItem' },
-                    Body: $('#ticket-body').
-                        (),
+                    Body: $('#ticket-body').html(),
                 }
-
+									
                 $SPHttp.update({
                     url: apiBase + "web/lists/getByTitle('Request')/Items(" + vm.ticket.Id+")",
                     data: responseData
@@ -60414,7 +60451,6 @@ function getRequestDigest() {
                 }, function (error) {
                     console.error(error);
                 });
-                console.log("Saving this"+$('#ticket-body').html());
             } else {
                 vm.ticketStatus.isEditing = true;
             }
@@ -60467,10 +60503,14 @@ function getRequestDigest() {
 
         function loadRequest(ticket) {
             $SPService.list
-                .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,Created,AssignedTo/Title,Author/Id,Author/Title,Author/Name&$expand=AssignedTo,Author", "Id eq " + $routeParams.id)
+                .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,Created,AssignedTo/Title,Author/Id,Author/Title,Author/Name,Author/EMail&$expand=AssignedTo,Author", "Id eq " + $routeParams.id)
                 .then(function (data) {
                     vm.ticket = data.data.d.results[0] || {};
                     vm.ticketStatus.ticketOwner = vm.ticket.Author.Name;
+
+                    spUtil.getPictureByUser(vm.ticket.Author.Name, function (pic) {
+                    		vm.ticket.pictureUrl = pic;
+                    });
 
                     if (vm.ticket.ID)
                         vm.loadResponses(vm.ticket.ID);

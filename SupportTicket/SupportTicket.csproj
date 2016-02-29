@@ -56,13 +56,9 @@
     <Content Include="Content\App\controllers\ticket.detail.controller.js" />
     <Content Include="Content\App\services\SPHttp.js" />
     <Content Include="Content\App\services\config.service.js" />
-<<<<<<< HEAD
     <Content Include="Support System\Elements.xml">
       <OpcRelationship>feature-elementmanifest</OpcRelationship>
     </Content>
-=======
-    <None Include="bundleconfig.json" />
->>>>>>> 367ec15401fce06289d06dff5923859719abe1e2
     <None Include="Content\matro-ui\fonts\metro.eot" />
     <None Include="Content\matro-ui\fonts\metro.ttf" />
     <None Include="Content\matro-ui\fonts\metro.woff" />
