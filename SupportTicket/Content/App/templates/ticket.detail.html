@@ -8,8 +8,8 @@
     <hr class="thin" style="margin-top: 12px;">
     <div class="row" style="border: 1px solid #DEDDDD;padding: 10px 10px 10px 10px;">
         <div class="col colspan2">
-						<span ng-class="{'mif-user photo-placeholder' : !vm.ticket.pictureUrl}">
-            <img ng-if="vm.ticket.pictureUrl" ng-src="{{vm.ticket.pictureUrl}}" style="width:50px;" /></span>
+						<span ng-class="{'mif-user photo-placeholder' : !vm.ticket.Author.PictureUrl}">
+            <img ng-if="vm.ticket.Author.PictureUrl" ng-src="{{vm.ticket.Author.PictureUrl}}" style="width:50px;" /></span>
             <span class="tag success" style="width:50px; display:block;">
                 {{vm.ticket.RequestStatus}}
             </span>
@@ -32,12 +32,28 @@
             </div>
         </div>
     </div>
-
+    <div class="row" style="border: 1px solid #e0d9d9; border-top:0px;">
+        <div class="cell auto-size">
+            <div class="" style=""  ng-if="vm.ticket.AssignedTo.PictureUrl">
+                <div class="listitem-image-title" style="padding-left: 40px;width:100%;white-space:nowrap;max-width:170px;">
+                    <span>Assigned</span>
+                    <h5 style="margin: 4px 0 0 0;">
+                        {{vm.ticket.AssignedTo.Title}}
+                    </h5>
+                </div>
+                <img alt="" ng-src="{{vm.ticket.AssignedTo.PictureUrl}}" 
+                           style="width: 40px;min-height: 36px;">
+            </div>
+        </div>
+        <div class="cell auto-size" style="line-height:1.5em">
+            <span class="mif-undo padding10"> Reply</span>
+        </div>
+    </div>
     <!-- R E S P O N S E S -->
     <div ng-repeat="response in vm.responses">
         <div class="row box">
             <div class="col colspan2">
-                <img src="" style="width:50px; height:50px;" />
+                <img ng-src="{{response.Author.PictureUrl}}" style="width:50px; height:50px;border-radius: 25px;" />
             </div>
             <div class="col colspan10 box-body">
                 <div class="popover padding2 marker-on-left bg-grayLighter" style="padding: 7px 15px;">
@@ -64,7 +80,7 @@
         <span class="place-right">
 
             <div class="ms-PeoplePicker single">
-                <label class="ms-Label">Assigne To</label>
+                <label class="ms-Label">Assign To</label>
                 <div class="ms-PeoplePicker-searchBox">
                     <input class="ms-PeoplePicker-searchField" ng-model="vm.ticket.searchBox" ng-change="vm.search()" type="text">
                     <input type="text" class="selectedKey ng-hide" ng-model="vm.ticket.key" />

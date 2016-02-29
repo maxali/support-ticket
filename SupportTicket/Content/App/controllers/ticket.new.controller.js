@@ -23,7 +23,7 @@
                 requestTitle: "",
                 key: "",
                 Body: "",
-                requestType: "",
+                requestType: "-",
                 requestStatus: "New"
             };
         }

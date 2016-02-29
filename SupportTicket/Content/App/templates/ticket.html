@@ -25,7 +25,7 @@
              ng-click="vm.showTicket(request.ID)">
             <div class="ms-ListItem-image" ng-if="request.AssignedTo.EMail != undefined" style="background-color: #767676;">
                 <div class="listitem-image-title">AssignedTo</div>
-                    <img width="70" alt="" src="https://outlook.office365.com/owa/service.svc/s/GetPersonaPhoto?email={{request.AssignedTo.EMail}}&UA=0&size=HR64x64&sc=1456140360229" />
+                    <img width="70" alt="" ng-src="{{request.AssignedTo.PictureUrl}}" />
             </div>
             <span class="ms-ListItem-primaryText">{{request.Title}}</span> 
             <span class="ms-ListItem-secondaryText">{{request.RequestType}}</span> 

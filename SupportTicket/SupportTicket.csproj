@@ -56,6 +56,8 @@
     <Content Include="Content\App\controllers\ticket.detail.controller.js" />
     <Content Include="Content\App\services\SPHttp.js" />
     <Content Include="Content\App\services\config.service.js" />
+    <Content Include="Images\profile.png" />
+    <Content Include="Scripts\SP.all.min.js" />
     <Content Include="Support System\Elements.xml">
       <OpcRelationship>feature-elementmanifest</OpcRelationship>
     </Content>

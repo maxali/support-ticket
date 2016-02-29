@@ -60012,11 +60012,25 @@ $.getMultiScripts = function (arr, path) {
 function getCurrentUser(cb) {
     var context = SP.ClientContext.get_current();
     var web = context.get_web();
+    
+    var userPropfile = new SP.UserProfiles.PeopleManager(context);
+    var myProfile = userPropfile.getMyProperties();
     var currentUser = web.get_currentUser();
-    context.load(currentUser);
+    context.load(myProfile,'AccountName','Email','Title','DisplayName','PictureUrl');
+    context.load(currentUser, 'Id');
     context.executeQueryAsync(function (data) {
-       
+
         var userInfo = {
+            user: {
+                id: currentUser.get_id(),
+                name: myProfile.get_displayName(),
+                accoutName: myProfile.get_accountName(),
+                email: myProfile.get_email(),
+                picture: scriptbase + "userphoto.aspx?size=S&username=" + myProfile.get_email() //myProfile.get_pictureUrl() || appweburl + "/Images/profile.png"
+            }
+        }
+
+        /*var userInfo = {
             user: {
                 id: currentUser.get_id(),
                 name: currentUser.get_title(),
@@ -60024,14 +60038,14 @@ function getCurrentUser(cb) {
                 email: currentUser.get_email(),
                 picture: "https://outlook.office365.com/owa/service.svc/s/GetPersonaPhoto?email=" + currentUser.get_email() + "&UA=0&size=HR64x64&sc=1456140360229" //scriptbase + "userphoto.aspx?size=L&username=" + currentUser.get_email()
             }
-        };
+        };*/
 
         if (typeof cb == "function")
             cb(userInfo);
         else 
             return userInfo;
-    }, function (err) {
-        console.log(err);
+    }, function (sender, args) {
+        console.log(args.get_message());
     })
 }
 
@@ -60213,10 +60227,43 @@ function getRequestDigest() {
     function spUtil(configService, $SPHttp, $q) {
         var service = {
         	listGetEndpoint: listGetEndpoint,
-        	getPictureByUser: getPictureByUser
+        	getPictureByUser: getPictureByUser,
+        	getUserPicture: getUserPicture
         };
-				
+
+        function getUserPicture(email) {
+            var pic = scriptbase + "userphoto.aspx?size=S&username=" + email;
+            return pic;
+        }
+
         function getPictureByUser(accountName, cb) {
+        	
+            var picCacheId = "pic" + accountName;
+        	var picCache = localStorage.getItem(picCacheId);
+        	if (picCache) {
+        		cb(picCache);
+        		return;
+        	}            
+
+        	var context = SP.ClientContext.get_current();
+        	var userPropfile = new SP.UserProfiles.PeopleManager(context);
+        	var myProfile = userPropfile.getPropertiesFor(accountName);
+            context.load(myProfile, 'PictureUrl')
+            context.executeQueryAsync(function () {
+                var pictureUrl = myProfile.get_pictureUrl() || appweburl + "/Images/profile.png";
+
+                // cache pictureUrl
+                if (myProfile.get_pictureUrl())
+                    localStorage.setItem(picCacheId, pictureUrl);
+
+                // return pictureUrl
+                cb(pictureUrl);
+               
+            }, function (sender, args) {
+
+                console.log(args.get_message());
+                cb(null);
+            })/*
         	var executor = new SP.RequestExecutor(appweburl);
 
         	var picCacheId = "pic" + accountName;
@@ -60227,29 +60274,28 @@ function getRequestDigest() {
         	}
 
         	executor.executeAsync(
-							{
-								url:
-										appweburl +
-										"/_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@v)" +
-										"?$select=DisplayName,Email,PictureUrl" +
-										"&@v='" + encodeURIComponent(accountName) + "'&@target='" + hostweburl + "'",
-								method: "GET",
-								headers: { "Accept": "application/json; odata=verbose", "Content-Type": "application/json; odata=verbose" },
-								success: function (data) {
-									var dataBody = JSON.parse(data.body);
+				{
+					url:
+					    appweburl +
+					    "/_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@v)" +
+					    "?$select=DisplayName,Email,PictureUrl" +
+					    "&@v='" + encodeURIComponent(accountName) + "'&@target='" + hostweburl + "'",
+					method: "GET",
+					headers: { "Accept": "application/json; odata=verbose", "Content-Type": "application/json; odata=verbose" },
+					success: function (data) {
+						var dataBody = JSON.parse(data.body);
 
-									// cache pictureUrl
-									if (dataBody.d.PictureUrl)
-										localStorage.setItem(picCacheId, dataBody.d.PictureUrl);
+						// cache pictureUrl
+						if (dataBody.d.PictureUrl)
+							localStorage.setItem(picCacheId, dataBody.d.PictureUrl);
 
-									// return pictureUrl
-									cb(dataBody.d.PictureUrl);
-								},
-								error: function(err) {
-									cb(err)
-								}
-							}
-					);
+						// return pictureUrl
+						cb(dataBody.d.PictureUrl);
+					},
+					error: function(err) {
+						cb(err)
+					}
+				});*/
         }
 
         function listItemGetEndpoint(listTitle, itemId, $select, $filter) {
@@ -60316,7 +60362,6 @@ function getRequestDigest() {
             vm.user = configService.user;
         });
         
-
         //vm.user.email = configService.user.email;
 
         activate();
@@ -60355,9 +60400,9 @@ function getRequestDigest() {
     angular
         .module('ticketApp')
         .controller('TicketController', TicketController);
-    TicketController.$inject = ['$scope', 'configService', '$routeParams', '$SPService', '$location'];
+    TicketController.$inject = ['$scope', 'configService', '$routeParams', '$SPService', 'spUtil', '$location'];
 
-    function TicketController($scope, configService, $routeParams, $SPService, $location) {
+    function TicketController($scope, configService, $routeParams, $SPService, spUtil, $location) {
         var vm = this,
             $filter = ""; // requests filter
 
@@ -60391,6 +60436,9 @@ function getRequestDigest() {
                 .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,AssignedTo/Title,AssignedTo/EMail,Created&$expand=AssignedTo&$orderby=Created desc"+$filter)
                 .then(function (data) {
                     vm.tickets = data.data.d.results;
+                    angular.forEach(vm.tickets,function(item, key) {
+                        vm.tickets[key].AssignedTo.PictureUrl = spUtil.getUserPicture(vm.tickets[key].AssignedTo.EMail); // scriptbase + "userphoto.aspx?size=S&username=" + vm.tickets[key].AssignedTo.EMail;
+                    })
                     $(".ms-ListItem").ListItem();
                 })
         }
@@ -60466,9 +60514,17 @@ function getRequestDigest() {
 
         function loadResponses(reqId) {
             $SPService.list
-                .getItems("Response", "ID,Title,RequestStatus,Body,Created,Request/Id,Author/Id,Author/Title,Author/Name&$expand=Author,Request", "Request/Id eq " + $routeParams.id)
+                .getItems("Response", "ID,Title,RequestStatus,Body,Created,Request/Id,Author/Id,Author/Title,Author/Name,Author/EMail&$expand=Author,Request", "Request/Id eq " + $routeParams.id)
                 .then(function (data) {
                     vm.responses = data.data.d.results || [];
+                   
+                    angular.forEach(vm.responses, function (res, key) {
+                        vm.responses[key].Author.PictureUrl = scriptbase + "userphoto.aspx?size=S&username=" + vm.responses[key].Author.EMail;
+                        /*spUtil.getPictureByUser(vm.responses[key].Author.Name, function (pic) {
+                            vm.responses[key].Author.PictureUrl = pic;
+                        });*/
+                    })
+
                 })
         }
 
@@ -60503,15 +60559,22 @@ function getRequestDigest() {
 
         function loadRequest(ticket) {
             $SPService.list
-                .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,Created,AssignedTo/Title,Author/Id,Author/Title,Author/Name,Author/EMail&$expand=AssignedTo,Author", "Id eq " + $routeParams.id)
+                .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,Created,AssignedTo/Title,AssignedTo/Id,AssignedTo/Name,AssignedTo/EMail,AssignedTo/Name,Author/Id,Author/Title,Author/Name,Author/EMail&$expand=AssignedTo,Author", "Id eq " + $routeParams.id)
                 .then(function (data) {
                     vm.ticket = data.data.d.results[0] || {};
                     vm.ticketStatus.ticketOwner = vm.ticket.Author.Name;
 
+                    vm.ticket.Author.PictureUrl = spUtil.getUserPicture(vm.ticket.Author.EMail); // scriptbase + "userphoto.aspx?size=S&username=" + vm.ticket.Author.EMail;
+                    vm.ticket.AssignedTo.PictureUrl = spUtil.getUserPicture(vm.ticket.AssignedTo.EMail); //scriptbase + "userphoto.aspx?size=S&username=" + vm.ticket.AssignedTo.EMail;
+                    /*
                     spUtil.getPictureByUser(vm.ticket.Author.Name, function (pic) {
-                    		vm.ticket.pictureUrl = pic;
+                    		vm.ticket.Author.PictureUrl = pic;
                     });
-
+                    if (vm.ticket.AssignedTo.Name)
+                        spUtil.getPictureByUser(vm.ticket.AssignedTo.Name, function (pic) {
+                            vm.ticket.AssignedTo.PictureUrl = pic;
+                        });
+                        */
                     if (vm.ticket.ID)
                         vm.loadResponses(vm.ticket.ID);
                 })
@@ -60551,7 +60614,7 @@ function getRequestDigest() {
                 requestTitle: "",
                 key: "",
                 Body: "",
-                requestType: "",
+                requestType: "-",
                 requestStatus: "New"
             };
         }

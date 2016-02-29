@@ -17,7 +17,6 @@
             vm.user = configService.user;
         });
         
-
         //vm.user.email = configService.user.email;
 
         activate();

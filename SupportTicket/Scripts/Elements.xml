@@ -24,5 +24,6 @@
     <File Path="Scripts\angular-cookies.min.js.map" Url="Scripts/angular-cookies.min.js.map" ReplaceContent="TRUE" />
     <File Path="Scripts\angular-cookies.min.js" Url="Scripts/angular-cookies.min.js" ReplaceContent="TRUE" />
     <File Path="Scripts\angular-cookies.js" Url="Scripts/angular-cookies.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\SP.all.min.js" Url="Scripts/SP.all.min.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

@@ -18,14 +18,15 @@
     <link href="../Content/matro-ui/css/fabric.min.css" rel="stylesheet" />
     <link href="../Content/matro-ui/css/fabric.components.min.css" rel="stylesheet" />
 
-    <script type="text/javascript" src="/_layouts/1033/init.js"></script>
-    <script type="text/javascript" src="/_layouts/15/MicrosoftAjax.js"></script>
-    <script type="text/javascript" src="/_layouts/15/init.js"></script>
-    <script type="text/javascript" src="/_layouts/15/core.js"></script>
-    <script type="text/javascript" src="/_layouts/15/SP.runtime.js"></script>
-    <script type="text/javascript" src="/_layouts/15/SP.js"></script>
-    <script type="text/javascript" src="/_layouts/15/SP.init.js"></script>
-    <script type="text/javascript" src="/_layouts/15/SP.core.js"></script>
+    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/MicrosoftAjax.js"></script>
+    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/init.js"></script>
+    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/core.js"></script>
+    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/SP.runtime.js"></script>
+    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/SP.js"></script>
+    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/SP.init.js"></script>
+    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/SP.core.js"></script>
+    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/SP.userprofiles.js"></script>
+    
     <script type="text/javascript" src="/_layouts/15/SP.RequestExecutor.js"></script>
    
 
@@ -59,39 +60,39 @@
 </head>
 <body style="background: rgba(222, 222, 222, 0.56);">
     <div class="app-bar fixed-top darcula" data-role="appbar" ng-controller="HeaderController as header">
-        <a class="app-bar-element branding" href="{{vm.hostUrl}}">SharePoint </a>
+        <a class="app-bar-element branding" href="{{header.hostUrl}}">SharePoint </a>
         <span class="app-bar-divider"></span>
         <ul class="app-bar-menu">
             <li style="margin-left: 100px"><a href="">Support Ticket</a></li>
         </ul>
-
         <div class="app-bar-element no-padding-right place-right">
             <span class="dropdown-toggle"><span class="mif-cog"></span>
                 {{header.user.name}}             
             </span>
             <div class="app-bar-drop-container padding10 place-right no-margin-top block-shadow fg-dark" data-role="dropdown" data-no-close="true" style="width: 320px">
                 <h4 class="text-light">Quick settings</h4>
-								<div class="flex-grid">
-									<div class="row">
-										<div class="cell colspan4">
-											<div class="no-margin-top"  >
-													<img alt="Profile image" ng-if="vm.user.picture" style="width: 100px; min-width:100px; min-height:100px;" ng-src="{{vm.user.picture}}" class="profile-image"/> 
-											</div>
-										</div>
-										<div class="cell colspan8" style="padding-left: 10px; line-height: 1.5em;">
-											<span style="font-size: 16px;">{{header.user.name}}</span>
-											<span style="font-weight: lighter; font-size: 12px;">{{header.user.email}}</span>
-										</div>
-									</div>
-									<hr style="height:1px;" />
+					<div class="flex-grid">
+						<div class="row">
+							<div class="cell colspan4">
+								<div class="no-margin-top"  >
+										<img alt="Profile image"  style="width: 100px; min-width:100px; min-height:100px;" 
+                                            src="{{header.user.picture}}" class="profile-image"/> 
 								</div>
+							</div>
+							<div class="cell colspan8" style="padding-left: 10px; line-height: 1.5em;">
+								<span style="font-size: 16px;">{{header.user.name}}</span>
+								<span style="font-weight: lighter; font-size: 12px;">{{header.user.email}}</span>
+							</div>
+						</div>
+						<hr style="height:1px;" />
+					</div>
                 <ul class="unstyled-list fg-dark">
-                    <li><a href="{{vm.hostUrl}}/_layouts/15/userdisp.aspx" class="fg-white2 fg-hover-yellow">My Settings</a></li>
+                    <li><a href="{{header.hostUrl}}/_layouts/15/userdisp.aspx" class="fg-white2 fg-hover-yellow">My Settings</a></li>
                     <li><a href="" class="fg-white3 fg-hover-yellow">Logout</a></li>
                 </ul>
             </div>
             <div class="place-right no-margin-top profile-image"  >
-                <img alt="Profile image" ng-if="vm.user.picture" width="50" height="50" ng-src="{{vm.user.picture}}" class="profile-image"/> 
+                <img alt="Profile image" width="50" height="50" src="{{header.user.picture}}" class="profile-image"/> 
             </div>
         </div>
     </div>

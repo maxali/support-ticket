@@ -25,7 +25,7 @@
 }
 .profile-image {
      width: 50px; 
-     max-height: 50px;
+     height: 3.125rem;
      display:inline;
      vertical-align: top;
      overflow: hidden;
@@ -45,6 +45,9 @@ input.ng-invalid {
     border: 1px solid #ff6a00;
 }
 
+.app-bar, .app-bar .app-bar-element, .app-bar .app-bar-divider, .app-bar .app-bar-menu, .app-bar .app-bar-menu > li, .app-bar .app-bar-menu>li>a {
+    /*height: 50px !important;*/
+}
 @media screen and (max-width: 800px){
     /*Bug in metro.responsive*/
     .sidebar li {
@@ -115,7 +118,8 @@ display: none !important;
 }
 .box {
     padding: 10px 10px 20px 10px;
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /*box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+    border: 1px solid #CEC5C5;
 }
 .box-body {
     overflow-x: hidden;
@@ -124,7 +128,7 @@ display: none !important;
     width: 100%;
 }
 .row.box {
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+    /*box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 5px 10px 0 rgba(0, 0, 0, 0.15);*/
     margin: 11px 0;
 }
 .ctrl-template {

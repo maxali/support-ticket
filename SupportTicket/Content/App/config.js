@@ -100,11 +100,25 @@ $.getMultiScripts = function (arr, path) {
 function getCurrentUser(cb) {
     var context = SP.ClientContext.get_current();
     var web = context.get_web();
+    
+    var userPropfile = new SP.UserProfiles.PeopleManager(context);
+    var myProfile = userPropfile.getMyProperties();
     var currentUser = web.get_currentUser();
-    context.load(currentUser);
+    context.load(myProfile,'AccountName','Email','Title','DisplayName','PictureUrl');
+    context.load(currentUser, 'Id');
     context.executeQueryAsync(function (data) {
-       
+
         var userInfo = {
+            user: {
+                id: currentUser.get_id(),
+                name: myProfile.get_displayName(),
+                accoutName: myProfile.get_accountName(),
+                email: myProfile.get_email(),
+                picture: scriptbase + "userphoto.aspx?size=S&username=" + myProfile.get_email() //myProfile.get_pictureUrl() || appweburl + "/Images/profile.png"
+            }
+        }
+
+        /*var userInfo = {
             user: {
                 id: currentUser.get_id(),
                 name: currentUser.get_title(),
@@ -112,14 +126,14 @@ function getCurrentUser(cb) {
                 email: currentUser.get_email(),
                 picture: "https://outlook.office365.com/owa/service.svc/s/GetPersonaPhoto?email=" + currentUser.get_email() + "&UA=0&size=HR64x64&sc=1456140360229" //scriptbase + "userphoto.aspx?size=L&username=" + currentUser.get_email()
             }
-        };
+        };*/
 
         if (typeof cb == "function")
             cb(userInfo);
         else 
             return userInfo;
-    }, function (err) {
-        console.log(err);
+    }, function (sender, args) {
+        console.log(args.get_message());
     })
 }
 

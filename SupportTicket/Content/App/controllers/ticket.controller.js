@@ -5,9 +5,9 @@
     angular
         .module('ticketApp')
         .controller('TicketController', TicketController);
-    TicketController.$inject = ['$scope', 'configService', '$routeParams', '$SPService', '$location'];
+    TicketController.$inject = ['$scope', 'configService', '$routeParams', '$SPService', 'spUtil', '$location'];
 
-    function TicketController($scope, configService, $routeParams, $SPService, $location) {
+    function TicketController($scope, configService, $routeParams, $SPService, spUtil, $location) {
         var vm = this,
             $filter = ""; // requests filter
 
@@ -41,6 +41,9 @@
                 .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,AssignedTo/Title,AssignedTo/EMail,Created&$expand=AssignedTo&$orderby=Created desc"+$filter)
                 .then(function (data) {
                     vm.tickets = data.data.d.results;
+                    angular.forEach(vm.tickets,function(item, key) {
+                        vm.tickets[key].AssignedTo.PictureUrl = spUtil.getUserPicture(vm.tickets[key].AssignedTo.EMail); // scriptbase + "userphoto.aspx?size=S&username=" + vm.tickets[key].AssignedTo.EMail;
+                    })
                     $(".ms-ListItem").ListItem();
                 })
         }
