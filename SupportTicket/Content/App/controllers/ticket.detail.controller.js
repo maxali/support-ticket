@@ -9,9 +9,12 @@
 
     function TicketDetailController($scope, spUtil, configService, $SPService, $SPHttp, $routeParams) {
         var vm = this;
+        vm.peoplePicker = [];
+        vm.ticket = {
+            key: ""
+        };     // current request ticket
 
-        vm.ticket = {};     // current request ticket
-        vm.response = {};   // current reply 
+        vm.response = { Body: "" };   // current reply 
         vm.responses = [];  // list of responses
 				
         vm.ticketStatus = { // if currentUser is the owner
@@ -31,7 +34,8 @@
                     __metadata: { 'type': 'SP.Data.RequestListItem' },
                     Body: $('#ticket-body').html(),
                 }
-									
+                responseData.AssignedToId = (vm.ticket.assignedTo > 0) ? vm.ticket.assignedTo : null;
+
                 $SPHttp.update({
                     url: apiBase + "web/lists/getByTitle('Request')/Items(" + vm.ticket.Id+")",
                     data: responseData
@@ -74,8 +78,7 @@
         }
 
         function addResponse() {
-            if (vm.response.Body.length < 10) return;
-
+            
             var responseData = {
                 __metadata: { 'type': 'SP.Data.ResponseListItem' },
                 Title: 'RE: ' + vm.ticket.Title,
@@ -125,11 +128,48 @@
                 })
         }
 
-        vm.ticketStatus.currentUser = (configService.user) ? configService.user.loginName : null;
+        vm.ticketStatus.currentUser = (configService.user) ? configService.user.accoutName : null;
         configService.registerObserverCallback(function () {
-            vm.ticketStatus.currentUser = configService.user.loginName;
+            vm.ticketStatus.currentUser = configService.user.accoutName;
         }); // update if changed
 
+
+
+        /** People picker */
+        // watch key and save assignedTo
+        var userIdCache = [];
+        $scope.$watch('vm.ticket.key', function (newKey, oldKey) {
+            // We need UserId to save Person/Group.
+            // get UserId by accountName eks. i:0#.f|membership|user@xx.onmic..com
+
+            if (!newKey) { // if user removed, reset assignedTo
+                vm.ticket.assignedTo = 0;
+                return false;
+            }
+
+            if (userIdCache[newKey]) {
+                console.log("GOT IT FROM CACHE: " + userIdCache[newKey]);
+                vm.ticket.assignedTo = userIdCache[newKey];
+                return;
+            }
+
+            // if we don't have the ID, get it
+            var accountName = vm.ticket.key;
+            $SPHttp.get({
+                url: apiBase + "web/siteusers(@v)?@v='" + encodeURIComponent(accountName) + "'",
+            }).then(function (data) {
+                vm.ticket.assignedTo = data.data.d.Id;
+                userIdCache[newKey] = data.data.d.Id;       // update userIdCache
+            }, function (error) {
+                alert("Cannot complete this. Cannot AssignTo the selected user.");
+                return false;
+            });
+        })
+        vm.search = function () {
+            $SPService.searchUser(vm.ticket.searchBox, function (result) {
+                vm.peoplePicker = result;
+            });
+        }
     }
 })();
 

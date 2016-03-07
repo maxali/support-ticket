@@ -1,143 +1,157 @@
 ﻿<div ng-controller="TicketDetailController as vm" class="ctrl-template">
-    <h2 class="">
-        {{vm.ticket.Title}}
-        <span ng-click="vm.saveOrEdit()" ng-if="vm.ticketStatus.isEditable()" 
-              ng-class="{'mif-floppy-disk': vm.ticketStatus.isEditing, 'mif-pencil': !vm.ticketStatus.isEditing }" 
-              class="place-right button" ></span>
-    </h2>
-    <hr class="thin" style="margin-top: 12px;">
-    <div class="row" style="border: 1px solid #DEDDDD;padding: 10px 10px 10px 10px;">
-        <div class="col colspan2">
-						<span ng-class="{'mif-user photo-placeholder' : !vm.ticket.Author.PictureUrl}">
-            <img ng-if="vm.ticket.Author.PictureUrl" ng-src="{{vm.ticket.Author.PictureUrl}}" style="width:50px;" /></span>
-            <span class="tag success" style="width:50px; display:block;">
-                {{vm.ticket.RequestStatus}}
-            </span>
-        </div>
-        <div class="col colspan10  box-body" style="padding:0 10px 20px 20px; line-height:1.5em">
-            <div class="popover padding2 marker-on-left bg-grayLighter" style="padding: 7px 15px;">
-                <div class="fg-black">
-                    <div>
-                        <h5 class="ng-binding" style="display: inline-block;">
-                            {{vm.ticket.Author.Title}}
-                        </h5>
-                        <h6 class="mif-calendar top text-secondary place-right ng-binding" style="display: inline-block;">
-                            {{vm.ticket.Created | date:"MM/dd/yyyy 'at' h:mma"}}
-                        </h6>
+    <div >
+        <h2>
+            <span class="ms-font-su">{{vm.ticket.Title}}</span>
+
+        </h2>
+        <hr class="thin" style="margin-top: 12px;">
+        <div class="row"  style="border: 1px solid #DEDDDD;">
+            <div class="cell auto-size">
+                <div class="row padding10">
+                    <div class="col colspan2">
+                        <span ng-class="{'mif-user photo-placeholder' : !vm.ticket.Author.PictureUrl}">
+                            <img ng-if="vm.ticket.Author.PictureUrl" ng-src="{{vm.ticket.Author.PictureUrl}}" style="width:50px;" />
+                        </span>
+                        <span class="tag success" style="width:50px; display:block;">
+                            {{vm.ticket.RequestStatus}}
+                        </span>
+                        <br />
+                        <button ng-click="vm.saveOrEdit()" ng-if="vm.ticketStatus.isEditable()" class="ms-Button ms-Button--command">
+                            <span class="ms-Button-icon "><i class="ms-Icon ms-font-xxl ms-fontColor-blueDark" ng-class="{'ms-Icon--save': vm.ticketStatus.isEditing, 'ms-Icon--editBox': !vm.ticketStatus.isEditing }"></i></span>
+                            <span class="ms-Button-description">Description of the action this button takes</span>
+                        </button>
+
                     </div>
-                </div>
-            </div>
-            <hr class="thin bg-white">
-            <div id="ticket-body"  ng-bind-html="vm.ticket.Body" contenteditable="{{vm.ticketStatus.isEditing}}">
-            </div>
-        </div>
-    </div>
-    <div class="row" style="border: 1px solid #e0d9d9; border-top:0px;">
-        <div class="cell auto-size">
-            <div class="" style=""  ng-if="vm.ticket.AssignedTo.PictureUrl">
-                <div class="listitem-image-title" style="padding-left: 40px;width:100%;white-space:nowrap;max-width:170px;">
-                    <span>Assigned</span>
-                    <h5 style="margin: 4px 0 0 0;">
-                        {{vm.ticket.AssignedTo.Title}}
-                    </h5>
-                </div>
-                <img alt="" ng-src="{{vm.ticket.AssignedTo.PictureUrl}}" 
-                           style="width: 40px;min-height: 36px;">
-            </div>
-        </div>
-        <div class="cell auto-size" style="line-height:1.5em">
-            <span class="mif-undo padding10"> Reply</span>
-        </div>
-    </div>
-    <!-- R E S P O N S E S -->
-    <div ng-repeat="response in vm.responses">
-        <div class="row box">
-            <div class="col colspan2">
-                <img ng-src="{{response.Author.PictureUrl}}" style="width:50px; height:50px;border-radius: 25px;" />
-            </div>
-            <div class="col colspan10 box-body">
-                <div class="popover padding2 marker-on-left bg-grayLighter" style="padding: 7px 15px;">
-                    <div class="fg-black">
-                        <div>
-                            <h5 class="ng-binding" style="display: inline-block;">
-                                RE: {{response.Author.Title}}
-                            </h5>
-                            <h6 class="mif-calendar top text-secondary place-right ng-binding" style="display: inline-block;">
-                                {{response.Created | date:"MM/dd/yyyy 'at' h:mma"}}
-                            </h6>
+                    <div class="col colspan10  box-body" style="padding:0 10px 20px 20px; line-height:1.5em">
+                        <div class="popover padding2 marker-on-left bg-grayLighter" style="padding: 7px 15px;">
+                            <div class="fg-black">
+                                <div>
+                                    <h5 class="ng-binding" style="display: inline-block;">
+                                        {{vm.ticket.Author.Title}}
+                                    </h5>
+                                    <h6 class="mif-calendar top text-secondary place-right ng-binding" style="display: inline-block;">
+                                        {{vm.ticket.Created | date:"MM/dd/yyyy 'at' h:mma"}}
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="thin bg-white">
+                        <div id="ticket-body" class="ms-fontWeight-regular ms-font-m-plus" ng-bind-html="vm.ticket.Body" contenteditable="{{vm.ticketStatus.isEditing}}">
                         </div>
                     </div>
-                </div><hr class="thin bg-white">
-                <div ng-bind-html="response.Body" />
-            </div>
-        </div>
-    </div>
-    <!-- //R E S P O N S E S-->
-
-    <!-- R E P L Y -->
-    <div class="box">
-        <span class="mif-undo padding10"> Reply</span>
-        <span class="place-right">
-
-            <div class="ms-PeoplePicker single">
-                <label class="ms-Label">Assign To</label>
-                <div class="ms-PeoplePicker-searchBox">
-                    <input class="ms-PeoplePicker-searchField" ng-model="vm.ticket.searchBox" ng-change="vm.search()" type="text">
-                    <input type="text" class="selectedKey ng-hide" ng-model="vm.ticket.key" />
                 </div>
-                <div class="ms-PeoplePicker-results">
-                    <div class="ms-PeoplePicker-resultGroups">
-                        <ul class="ms-PeoplePicker-resultList"
-                            ng-repeat="person in vm.peoplePicker">
-                            <li class="ms-PeoplePicker-result">
-                                <!-- ng-click="vm.ticket.assignedTo=this.person">-->
-                                <div class="ms-Persona ms-Persona--square">
-                                    <div class="ms-Persona-imageArea">
-                                        <i class="ms-Persona-placeholder ms-Icon ms-Icon--person"></i>
-                                        <img class="ms-Persona-image" ng-src="{{person.image}}">
-                                    </div>
-                                    <div class="ms-Persona-presence"></div>
-                                    <div class="ms-Persona-details">
-                                        <input type="hidden" class="ms-Persona-dataKey" value="{{person.Key}}" />
-                                        <div class="ms-Persona-primaryText">{{person.DisplayText}}</div>
-                                        <div class="ms-Persona-secondaryText">{{person.EntityData.Email}}</div>
-                                    </div>
+                <div class="row">
+                    <div class="cell auto-size padding10">
+                        <label class="ms-Label">
+                            <span class="ms-fontWeight-semibold">Assigned To: </span>{{vm.ticket.AssignedTo.Title}}
+                            <span class="ms-fontWeight-light">{{' - ' + vm.ticket.AssignedTo.EMail}}</span>
+                        </label>
+                        <div class="ms-PeoplePicker single" ng-if="vm.ticketStatus.isEditing">
+                            <label class="ms-Label">Choose to assign: </label>
+                            <div class="ms-PeoplePicker-searchBox">
+                                <input class="ms-PeoplePicker-searchField" ng-model="vm.ticket.searchBox" ng-change="vm.search()" type="text">
+                                <input type="text" class="selectedKey ng-hide" ng-model="vm.ticket.key" />
+                            </div>
+                            <div class="ms-PeoplePicker-results">
+                                <div class="ms-PeoplePicker-resultGroups">
+                                    <ul class="ms-PeoplePicker-resultList"
+                                        ng-repeat="person in vm.peoplePicker">
+                                        <li class="ms-PeoplePicker-result">
+                                            <!-- ng-click="vm.ticket.assignedTo=this.person">-->
+                                            <div class="ms-Persona ms-Persona--square">
+                                                <div class="ms-Persona-imageArea">
+                                                    <i class="ms-Persona-placeholder ms-Icon ms-Icon--person"></i>
+                                                    <img class="ms-Persona-image" ng-src="{{person.image}}">
+                                                </div>
+                                                <div class="ms-Persona-presence"></div>
+                                                <div class="ms-Persona-details">
+                                                    <input type="hidden" class="ms-Persona-dataKey" value="{{person.Key}}" />
+                                                    <div class="ms-Persona-primaryText">{{person.DisplayText}}</div>
+                                                    <div class="ms-Persona-secondaryText">{{person.EntityData.Email}}</div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+
                                 </div>
-                            </li>
-
-                        </ul>
-
+                            </div>
+                            <script>    $(".ms-PeoplePicker").PeoplePicker();</script>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="row" style="border: 1px solid #e0d9d9; border-top:0px;" ng-hide="true">
+                    <div class="cell auto-size">
+                        <div class="" style="" ng-if="vm.ticket.AssignedTo.PictureUrl">
+                            <div class="listitem-image-title" style="padding-left: 40px;width:100%;white-space:nowrap;max-width:170px;">
+                                <span>Assigned</span>
+                                <h5 style="margin: 4px 0 0 0;">
+                                    {{vm.ticket.AssignedTo.Title}}
+                                </h5>
+                            </div>
+                            <img alt="" ng-src="{{vm.ticket.AssignedTo.PictureUrl}}"
+                                 style="width: 40px;min-height: 36px;">
+                        </div>
+                    </div>
+                    <div class="cell auto-size" style="line-height:1.5em">
+                        <span class="mif-undo padding10"> Reply</span>
+                    </div>
+                </div>
 
-        </span>
-        <div class="ms-TextField ms-TextField--multiline">
-            <textarea class="ms-TextField-field" min="10"
-                        ng-model="vm.response.Body" id="requestBody"
-                        name="requestBody" style="min-height:150px;"></textarea>
+            </div>
         </div>
-        <button type="button" ng-click="vm.addResponse()"  class="button primary"><span class="mif-plus"> </span> Add Reply</button>
-        <span class="place-right">
-            <div class="ms-Dropdown" tabindex="0" style="min-width:200px;">
-                <label class="ms-Label">Change Request Status</label>
-                <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
-                <select class="ms-Dropdown-select" ng-model="vm.response.RequestType" id="requestType" name="requestType">
-                    <option>Select request status…</option>
-                    <option value="Open">Open</option>
-                    <option value="Under Review">Under Review</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Done">Done</option>
-                    <option value="Done">Closed</option>
-                </select>
-            </div>
-        </span>
-    </div>
 
+        <!-- R E S P O N S E S -->
+        <div ng-repeat="response in vm.responses">
+            <div class="row box">
+                <div class="col colspan2">
+                    <img ng-src="{{response.Author.PictureUrl}}" style="width:50px; height:50px;border-radius: 25px;" />
+                </div>
+                <div class="col colspan10 box-body">
+                    <div class="popover padding2 marker-on-left bg-grayLighter" style="padding: 7px 15px;">
+                        <div class="fg-black">
+                            <div>
+                                <h5 class="ng-binding" style="display: inline-block;">
+                                    RE: {{response.Author.Title}}
+                                </h5>
+                                <h6 class="mif-calendar top text-secondary place-right ng-binding" style="display: inline-block;">
+                                    {{response.Created | date:"MM/dd/yyyy 'at' h:mma"}}
+                                </h6>
+                            </div>
+                        </div>
+                    </div><hr class="thin bg-white">
+                    <div ng-bind-html="response.Body" />
+                </div>
+            </div>
+        </div>
+        <!-- //R E S P O N S E S-->
+        <!-- R E P L Y -->
+        <div class="box">
+            <div class="ms-TextField ms-TextField--multiline">
+                <textarea class="ms-TextField-field" min="10"
+                          ng-model="vm.response.Body" id="requestBody"
+                          name="requestBody" style="min-height:150px;"></textarea>
+            </div>
+            <button type="button" ng-click="vm.addResponse()" class="button" ng-class="{'primary': vm.response.Body.length > 2, 'disabled': vm.response.Body.length < 3}"><span class="mif-plus"> </span> Update Ticket</button>
+            <span class="place-right">
+                <div class="ms-Dropdown" tabindex="0" style="min-width:200px;">
+                    <label class="ms-Label">Change Request Status</label>
+                    <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
+                    <select class="ms-Dropdown-select" ng-model="vm.response.RequestType" id="requestType" name="requestType">
+                        <option>Select request status…</option>
+                        <option value="Open">Open</option>
+                        <option value="Under Review">Under Review</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Done">Done</option>
+                        <option value="Done">Closed</option>
+                    </select>
+                </div>
+            </span>
+        </div>
+
+    </div>
 </div>
 <script>
     $(".ms-Dropdown").Dropdown();
     $(".ms-TextField").TextField();
-    $(".ms-PeoplePicker").PeoplePicker();
-
 </script>

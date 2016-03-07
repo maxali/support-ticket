@@ -5,9 +5,22 @@
 		<!---<span class="mif-drive-eta place-right"></span>-->
 	</h3>
     <hr class="thin bg-grayLighter">
-    <a href="#/tickets/new" class="button primary"><span class="mif-plus"> </span> Create...</a>
-    <button class="button " 
-            ng-class="{'disabled': vm.checkedList() == false, 'success': vm.checkedList()}"><span class="mif-play"></span> Assign </button>
+
+    <ul class="ms-Pivot  place-right"  style="display:inline">
+        <li class="ms-Pivot-link is-selected" ng-click="vm.filterTicket('')">All</li>
+        <li class="ms-Pivot-link" ng-click="vm.filterTicket('open')">Open</li>
+        <li class="ms-Pivot-link"  ng-click="vm.filterTicket('unassigned')">Unassigned</li>
+        <li class="ms-Pivot-link"  ng-click="vm.filterTicket('mine')">MyQueue</li>
+        <li class="ms-Pivot-link ms-Pivot-link--overflow"><i class="ms-Pivot-ellipsis ms-Icon ms-Icon--ellipsis"></i></li>
+    </ul>
+    <script>$(".ms-Pivot").Pivot();</script>
+    <span class="">
+        <a href="#/tickets/new" class="button primary"><span class="mif-plus"> </span> Create...</a>
+        <button class="button "
+                ng-class="{'disabled': vm.checkedList() == false, 'success': vm.checkedList()}">
+            <span class="mif-play"></span> Assign
+        </button>
+    </span>
     <hr class="thin bg-grayLighter">
 
     <div ng-repeat="request in vm.tickets">

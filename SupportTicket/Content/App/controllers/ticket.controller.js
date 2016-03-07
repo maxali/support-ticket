@@ -35,8 +35,30 @@
             
         }
 
+        vm.filterTicket = function (filter) {
+            switch (filter) {
+                case 'all':
+                    $filter = "";
+                    break; 
+                case 'open':
+                    $filter = "RequestStatus eq 'open'";
+                    break;
+                case 'mine':
+                    $filter = "AssignedTo/Id eq " + configService.user.id;
+                    break;
+                case 'unassigned':
+                    $filter = "AssignedTo/Id eq null";
+                    break;
+                default:
+                    $filter = "";
+                    break;
+            }
+            $filter = "&$filter=" + $filter;
+            console.log($filter)
+            vm.loadRequests();
+        }
         // load list
-        vm.loadRequests = function(){
+        vm.loadRequests = function () {
             $SPService.list
                 .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,AssignedTo/Title,AssignedTo/EMail,Created&$expand=AssignedTo&$orderby=Created desc"+$filter)
                 .then(function (data) {

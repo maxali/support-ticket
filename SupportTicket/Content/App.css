@@ -128,7 +128,7 @@ display: none !important;
     width: 100%;
 }
 .row.box {
-    /*box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 5px 10px 0 rgba(0, 0, 0, 0.15);*/
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 5px 10px 0 rgba(0, 0, 0, 0.15);
     margin: 11px 0;
 }
 .ctrl-template {
@@ -139,7 +139,7 @@ display: none !important;
     max-width: 580px;*/
 }
 div[contenteditable='true'] {
-    border: 1px solid #adadad;
+    border: 1px solid #E0DADA;
     padding: 10px;
 }
 .photo-placeholder {

@@ -46723,6 +46723,45 @@ angular.module('ngAnimate', [])
 
 })(jQuery);
 
+// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See LICENSE in the project root for license information.
+
+/**
+ * Pivot Plugin
+ *
+ * Adds basic demonstration functionality to .ms-Pivot components.
+ *
+ * @param  {jQuery Object}  One or more .ms-Pivot components
+ * @return {jQuery Object}  The same components (allows for chaining)
+ */
+(function ($) {
+    $.fn.Pivot = function () {
+
+        /** Go through each pivot we've been given. */
+        return this.each(function () {
+
+            var $pivotContainer = $(this);
+
+            /** When clicking/tapping a link, select it. */
+            $pivotContainer.on('click', '.ms-Pivot-link', function (event) {
+                event.preventDefault();
+                /** Check if current selection has elipses child element **/
+                var $elipsisCheck = $(this).find('.ms-Pivot-ellipsis');
+
+                /** Only execute when no elipses element can be found **/
+                if ($elipsisCheck.length === 0) {
+
+                    $(this).siblings('.ms-Pivot-link').removeClass('is-selected');
+                    $(this).addClass('is-selected');
+                }
+
+            });
+
+        });
+
+    };
+})(jQuery);
+
+
 /*!
  * Metro UI CSS v3.0.14 (http://metroui.org.ua)
  * Copyright 2012-2016 Sergey Pimenov
@@ -60430,8 +60469,30 @@ function getRequestDigest() {
             
         }
 
+        vm.filterTicket = function (filter) {
+            switch (filter) {
+                case 'all':
+                    $filter = "";
+                    break; 
+                case 'open':
+                    $filter = "RequestStatus eq 'open'";
+                    break;
+                case 'mine':
+                    $filter = "AssignedTo/Id eq " + configService.user.id;
+                    break;
+                case 'unassigned':
+                    $filter = "AssignedTo/Id eq null";
+                    break;
+                default:
+                    $filter = "";
+                    break;
+            }
+            $filter = "&$filter=" + $filter;
+            console.log($filter)
+            vm.loadRequests();
+        }
         // load list
-        vm.loadRequests = function(){
+        vm.loadRequests = function () {
             $SPService.list
                 .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,AssignedTo/Title,AssignedTo/EMail,Created&$expand=AssignedTo&$orderby=Created desc"+$filter)
                 .then(function (data) {
@@ -60464,9 +60525,12 @@ function getRequestDigest() {
 
     function TicketDetailController($scope, spUtil, configService, $SPService, $SPHttp, $routeParams) {
         var vm = this;
+        vm.peoplePicker = [];
+        vm.ticket = {
+            key: ""
+        };     // current request ticket
 
-        vm.ticket = {};     // current request ticket
-        vm.response = {};   // current reply 
+        vm.response = { Body: "" };   // current reply 
         vm.responses = [];  // list of responses
 				
         vm.ticketStatus = { // if currentUser is the owner
@@ -60486,7 +60550,8 @@ function getRequestDigest() {
                     __metadata: { 'type': 'SP.Data.RequestListItem' },
                     Body: $('#ticket-body').html(),
                 }
-									
+                responseData.AssignedToId = (vm.ticket.assignedTo > 0) ? vm.ticket.assignedTo : null;
+
                 $SPHttp.update({
                     url: apiBase + "web/lists/getByTitle('Request')/Items(" + vm.ticket.Id+")",
                     data: responseData
@@ -60529,8 +60594,7 @@ function getRequestDigest() {
         }
 
         function addResponse() {
-            if (vm.response.Body.length < 10) return;
-
+            
             var responseData = {
                 __metadata: { 'type': 'SP.Data.ResponseListItem' },
                 Title: 'RE: ' + vm.ticket.Title,
@@ -60580,11 +60644,48 @@ function getRequestDigest() {
                 })
         }
 
-        vm.ticketStatus.currentUser = (configService.user) ? configService.user.loginName : null;
+        vm.ticketStatus.currentUser = (configService.user) ? configService.user.accoutName : null;
         configService.registerObserverCallback(function () {
-            vm.ticketStatus.currentUser = configService.user.loginName;
+            vm.ticketStatus.currentUser = configService.user.accoutName;
         }); // update if changed
 
+
+
+        /** People picker */
+        // watch key and save assignedTo
+        var userIdCache = [];
+        $scope.$watch('vm.ticket.key', function (newKey, oldKey) {
+            // We need UserId to save Person/Group.
+            // get UserId by accountName eks. i:0#.f|membership|user@xx.onmic..com
+
+            if (!newKey) { // if user removed, reset assignedTo
+                vm.ticket.assignedTo = 0;
+                return false;
+            }
+
+            if (userIdCache[newKey]) {
+                console.log("GOT IT FROM CACHE: " + userIdCache[newKey]);
+                vm.ticket.assignedTo = userIdCache[newKey];
+                return;
+            }
+
+            // if we don't have the ID, get it
+            var accountName = vm.ticket.key;
+            $SPHttp.get({
+                url: apiBase + "web/siteusers(@v)?@v='" + encodeURIComponent(accountName) + "'",
+            }).then(function (data) {
+                vm.ticket.assignedTo = data.data.d.Id;
+                userIdCache[newKey] = data.data.d.Id;       // update userIdCache
+            }, function (error) {
+                alert("Cannot complete this. Cannot AssignTo the selected user.");
+                return false;
+            });
+        })
+        vm.search = function () {
+            $SPService.searchUser(vm.ticket.searchBox, function (result) {
+                vm.peoplePicker = result;
+            });
+        }
     }
 })();
 

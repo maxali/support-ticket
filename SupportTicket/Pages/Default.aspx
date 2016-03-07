@@ -18,17 +18,16 @@
     <link href="../Content/matro-ui/css/fabric.min.css" rel="stylesheet" />
     <link href="../Content/matro-ui/css/fabric.components.min.css" rel="stylesheet" />
 
-    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/MicrosoftAjax.js"></script>
-    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/init.js"></script>
-    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/core.js"></script>
-    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/SP.runtime.js"></script>
-    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/SP.js"></script>
-    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/SP.init.js"></script>
-    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/SP.core.js"></script>
-    <script type="text/javascript" src="https://static.sharepointonline.com/bld/_layouts/15/16.0.5004.1220/SP.userprofiles.js"></script>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/3.5/MicrosoftAjax.js"></script>
+    <script type="text/javascript" src="/_layouts/15/init.js"></script>
+    <script type="text/javascript" src="/_layouts/15/core.js"></script>
+    <script type="text/javascript" src="/_layouts/15/SP.runtime.js"></script>
+    <script type="text/javascript" src="/_layouts/15/SP.js"></script>
+    <script type="text/javascript" src="/_layouts/15/SP.init.js"></script>
+    <script type="text/javascript" src="/_layouts/15/SP.core.js"></script>
+    <script type="text/javascript" src="/_layouts/15/SP.userprofiles.js"></script>
     
     <script type="text/javascript" src="/_layouts/15/SP.RequestExecutor.js"></script>
-   
 
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
     <script src="../Scripts/angular.min.js"></script>
@@ -128,12 +127,27 @@
                 <div class="cell auto-size padding20 bg-white" id="cell-content">
                     <div ng-view></div>
                 </div>
+                <div class="cell size-x300" style="max-width: 300px; background: #E0E2F3;padding: 0 10px;">
+                    <h4 class="text-light ng-binding" style="text-transform: uppercase;">Latest Events<!---<span class="mif-drive-eta place-right"></span>-->
+	                </h4>
+                    <hr class="thin bg-grayLighter" />
+                    <ul class="simple-list">
+                            <li>Lorem ipsum dolor sit amet</li>
+                            <li>Consectetur adipiscing elit</li>
+                            <li>Integer molestie lorem at massa</li>
+                            <li>Facilisis in pretium nisl aliquet</li>
+                            <li>Nulla volutpat aliquam velit</li>
+                            <li>Faucibus porta lacus fringilla vel</li>
+                            <li>Aenean sit amet erat nunc</li>
+                            <li>Eget porttitor lorem</li>
+                        </ul>
+                </div>
             </div>
         </div>
     </div>
 
 
-
+    
 
 </body>
 </html>
