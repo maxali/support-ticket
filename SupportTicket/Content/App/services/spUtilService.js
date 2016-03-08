@@ -8,7 +8,8 @@
 
     function spUtil(configService, $SPHttp, $q) {
         var service = {
-        	listGetEndpoint: listGetEndpoint,
+            listGetEndpoint: listGetEndpoint,
+            listItemGetEndpoint: listItemGetEndpoint,
         	getPictureByUser: getPictureByUser,
         	getUserPicture: getUserPicture
         };
@@ -83,7 +84,7 @@
         function listItemGetEndpoint(listTitle, itemId, $select, $filter) {
             var url = "";
             url += apiBase;
-            url += "/lists/getByTitle('" + listTitle + "')/items/getItemById("+itemId+")";
+            url += "/lists/getByTitle('" + listTitle + "')/items("+itemId+")";
             url += ($select) ? "?$select=" + $select + "&" : "?";
             url += ($filter) ? "$filter=" + $filter : "";
 

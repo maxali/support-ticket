@@ -117,15 +117,37 @@ display: none !important;
     border: 1px solid #E4E4FD;
 }
 .box {
-    padding: 10px 10px 20px 10px;
+    padding: 10px 10px 35px 10px;
     /*box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
     border: 1px solid #CEC5C5;
+    position: relative; /** for delete button at bottom*/
 }
+.box-commands {
+    border-top: 1px solid rgba(230, 229, 229, 0.74);
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    text-align: right;
+}
+    .box-commands button {
+        transition: all 0.5s;
+    }
+    .box-commands button {
+        opacity: 0.4;
+    }
+    .box-commands.box-commands--active button, .box-commands button:hover {
+        opacity: 1 !important;
+    }
+    .box-commands--active {
+            background: #E5E4E6;
+    }
 .box-body {
     overflow-x: hidden;
     padding-left:15px; 
     line-height:1.5em;
     width: 100%;
+
 }
 .row.box {
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 5px 10px 0 rgba(0, 0, 0, 0.15);

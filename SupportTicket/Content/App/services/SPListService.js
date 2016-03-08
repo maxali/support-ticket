@@ -12,10 +12,17 @@
                 getItem: getListItem,
                 getItems: getListItems,
                 addItem: addListItem,
+                deleteItem: deleteItem,
                 updateItem: updateListItem
             },
             searchUser: searchUser
         };
+
+        function deleteItem(listTitle, itemId) {
+            return $SPHttp.delete({
+                url: spUtil.listItemGetEndpoint(listTitle, itemId),
+            });
+        }
 
         function getListItem(listTitle, itemId) {
             return $SPHttp.get({

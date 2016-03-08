@@ -75,7 +75,7 @@
 							<div class="cell colspan4">
 								<div class="no-margin-top"  >
 										<img alt="Profile image"  style="width: 100px; min-width:100px; min-height:100px;" 
-                                            src="{{header.user.picture}}" class="profile-image"/> 
+                                            ng-src="{{header.user.picture}}" class="profile-image"/> 
 								</div>
 							</div>
 							<div class="cell colspan8" style="padding-left: 10px; line-height: 1.5em;">
@@ -91,7 +91,7 @@
                 </ul>
             </div>
             <div class="place-right no-margin-top profile-image"  >
-                <img alt="Profile image" width="50" height="50" src="{{header.user.picture}}" class="profile-image"/> 
+                <img alt="Profile image" width="50" height="50" ng-src="{{header.user.picture}}" class="profile-image"/> 
             </div>
         </div>
     </div>

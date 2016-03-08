@@ -10,8 +10,25 @@
         var service = {
             get: get,
             post: post,
-            update: update
+            update: update,
+            delete: deleteItem
         };
+
+
+        function deleteItem(options) {
+            return $http({
+                method: 'POST',
+                url: options.url,
+                headers: options.headers || {
+                    "Accept": "application/json; odata=verbose",
+                    "Content-Type": "application/json; odata=verbose",
+                    "X-HTTP-Method": "DELETE",
+                    "IF-MATCH": "*",
+                    "X-RequestDigest": requestDigest
+                },
+                data: options.data || ""
+            });
+        }
 
         function get(options) {
             return $http({

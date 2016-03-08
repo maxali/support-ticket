@@ -5,9 +5,9 @@
     angular
         .module('ticketApp')
         .controller('TicketDetailController', TicketDetailController);
-    TicketDetailController.$inject = ['$scope','spUtil', 'configService', '$SPService', '$SPHttp', '$routeParams'];
+    TicketDetailController.$inject = ['$scope','$interval','spUtil', 'configService', '$SPService', '$SPHttp', '$routeParams'];
 
-    function TicketDetailController($scope, spUtil, configService, $SPService, $SPHttp, $routeParams) {
+    function TicketDetailController($scope, $interval, spUtil, configService, $SPService, $SPHttp, $routeParams) {
         var vm = this;
         vm.peoplePicker = [];
         vm.ticket = {
@@ -21,44 +21,16 @@
             currentUser: "// from configService",
             ticketOwner: "// from vm.ticket.Author.Name ",
             isEditable: function () {
-                return this.currentUser === this.ticketOwner 
+                return this.currentUser === this.ticketOwner
             },
             isEditing: false
         }
-
-        vm.saveOrEdit = function () {
-            if (vm.ticketStatus.isEditing) {
-                vm.ticketStatus.isEditing = false;
-
-                var responseData = {
-                    __metadata: { 'type': 'SP.Data.RequestListItem' },
-                    Body: $('#ticket-body').html(),
-                }
-                responseData.AssignedToId = (vm.ticket.assignedTo > 0) ? vm.ticket.assignedTo : null;
-
-                $SPHttp.update({
-                    url: apiBase + "web/lists/getByTitle('Request')/Items(" + vm.ticket.Id+")",
-                    data: responseData
-                }).then(function (data) {
-                    if (data.statusText == "Created") {
-                        //vm.responses.push()
-                        console.log(data)
-                      
-                    }
-                }, function (error) {
-                    console.error(error);
-                });
-            } else {
-                vm.ticketStatus.isEditing = true;
-            }
-
-        }
-
 
         vm.loadRequest = loadRequest; 
         vm.loadRequest();
         vm.loadResponses = loadResponses; 
         vm.addResponse = addResponse;
+        vm.deleteResponse = deleteResponse;
 
 
         function loadResponses(reqId) {
@@ -69,16 +41,33 @@
                    
                     angular.forEach(vm.responses, function (res, key) {
                         vm.responses[key].Author.PictureUrl = scriptbase + "userphoto.aspx?size=S&username=" + vm.responses[key].Author.EMail;
-                        /*spUtil.getPictureByUser(vm.responses[key].Author.Name, function (pic) {
-                            vm.responses[key].Author.PictureUrl = pic;
-                        });*/
+
+                        vm.responses[key].DeleteTimout = vm.currentDate >= new Date(new Date(vm.responses[key].Created).setDate(new Date(vm.responses[key].Created).getDate() + 1));
                     })
 
                 })
         }
 
+        function deleteResponse(response) {
+            var responseId = response.Id;
+            if (!confirm("Are you sure you want to delete?"))
+                return false;
+
+            $SPService
+                .list
+                .deleteItem("Response", responseId)
+                .then(function (data) {
+                    console.log(data);
+                    if (data.statusText == "OK") {
+                        vm.responses.splice(vm.responses.indexOf(response), 1);
+                    }
+                }, function (err) {
+                    console.log(err);
+                })
+        }
         function addResponse() {
-            
+            if (vm.response.Body < 10) return false;
+
             var responseData = {
                 __metadata: { 'type': 'SP.Data.ResponseListItem' },
                 Title: 'RE: ' + vm.ticket.Title,
@@ -103,6 +92,34 @@
             }, function (error) {
                 console.error(error);
             })
+        }
+
+        vm.saveOrEdit = function () {
+            if (vm.ticketStatus.isEditing) {
+                vm.ticketStatus.isEditing = false;
+
+                var responseData = {
+                    __metadata: { 'type': 'SP.Data.RequestListItem' },
+                    Body: $('#ticket-body').html(),
+                }
+                responseData.AssignedToId = (vm.ticket.assignedTo > 0) ? vm.ticket.assignedTo : null;
+
+                $SPHttp.update({
+                    url: apiBase + "web/lists/getByTitle('Request')/Items(" + vm.ticket.Id + ")",
+                    data: responseData
+                }).then(function (data) {
+                    if (data.statusText == "Created") {
+                        //vm.responses.push()
+                        console.log(data)
+
+                    }
+                }, function (error) {
+                    console.error(error);
+                });
+            } else {
+                vm.ticketStatus.isEditing = true;
+            }
+
         }
 
         function loadRequest(ticket) {
@@ -132,7 +149,6 @@
         configService.registerObserverCallback(function () {
             vm.ticketStatus.currentUser = configService.user.accoutName;
         }); // update if changed
-
 
 
         /** People picker */
@@ -170,6 +186,8 @@
                 vm.peoplePicker = result;
             });
         }
+
+        $interval(function () { vm.currentDate = new Date(); }, 1000);
     }
 })();
 
