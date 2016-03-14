@@ -140,8 +140,8 @@
                     <div class="ms-Dropdown" tabindex="0" style="min-width:200px;">
                         <label class="ms-Label">Change Request Status</label>
                         <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
-                        <select class="ms-Dropdown-select" ng-model="vm.ticket.RequestType" id="requestType" name="requestType">
-                            <option>Select request status…</option>
+                        <select class="ms-Dropdown-select" ng-model="vm.ticket.newRequestStatus" id="requestType" name="requestType">
+                            <option value="">Select request status…</option>
                             <option value="Open">Open</option>
                             <option value="Under Review">Under Review</option>
                             <option value="In Progress">In Progress</option>
@@ -151,6 +151,7 @@
                     </div>
                 </span>
             </form>
+
         </div>
 
     </div>

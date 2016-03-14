@@ -5,11 +5,11 @@
     angular
         .module('ticketApp')
         .controller('TicketController', TicketController);
-    TicketController.$inject = ['$scope', 'configService', '$routeParams', '$SPService', 'spUtil', '$location'];
+    TicketController.$inject = ['$scope', 'configService', '$routeParams', '$SPService', 'spUtil', '$location', '$SPHttp'];
 
-    function TicketController($scope, configService, $routeParams, $SPService, spUtil, $location) {
+    function TicketController($scope, configService, $routeParams, $SPService, spUtil, $location, $SPHttp) {
         var vm = this,
-            $filter = ""; // requests filter
+            $filter = "&$filter=RequestStatus ne 'done'"; // requests filter
 
         vm.user = [],
         vm.tickets = [];
@@ -38,16 +38,22 @@
         vm.filterTicket = function (filter) {
             switch (filter) {
                 case 'all':
-                    $filter = "";
-                    break; 
+                    $filter = "RequestStatus ne 'done'";
+                    break;
+                case '':
+                    $filter = "RequestStatus ne 'done'";
+                    break;
                 case 'open':
                     $filter = "RequestStatus eq 'open'";
                     break;
                 case 'mine':
-                    $filter = "AssignedTo/Id eq " + configService.user.id;
+                    $filter = "AssignedTo/Id eq " + configService.user.id + " and RequestStatus ne 'done'";
                     break;
                 case 'unassigned':
-                    $filter = "AssignedTo/Id eq null";
+                    $filter = "AssignedTo/Id eq null and RequestStatus ne 'done'";
+                    break;
+                case 'closed':
+                    $filter = "RequestStatus eq 'closed'";
                     break;
                 default:
                     $filter = "";
@@ -57,6 +63,7 @@
             console.log($filter)
             vm.loadRequests();
         }
+
         // load list
         vm.loadRequests = function () {
             $SPService.list
@@ -74,6 +81,19 @@
             vm.user = configService.user;
         }
         
+
+        vm.searchDocs = function () {
+            $SPHttp.get({
+                url: "https://btotal-7215eed9112c70.sharepoint.com/sites/apps/SupportTicket/_api/search/query?querytext='" + vm.searchDocuments + "'&" + vm.searchrefiners
+            }).then(function (data) {
+
+                console.log(data.data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results);
+            }, function (err) {
+                console.error(err);
+            })
+
+
+        }
 
     }
 

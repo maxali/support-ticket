@@ -7,10 +7,11 @@
     <hr class="thin bg-grayLighter">
 
     <ul class="ms-Pivot  place-right"  style="display:inline">
-        <li class="ms-Pivot-link is-selected" ng-click="vm.filterTicket('')">All</li>
+        <li class="ms-Pivot-link is-selected" ng-click="vm.filterTicket('all')">All</li>
         <li class="ms-Pivot-link" ng-click="vm.filterTicket('open')">Open</li>
         <li class="ms-Pivot-link"  ng-click="vm.filterTicket('unassigned')">Unassigned</li>
         <li class="ms-Pivot-link"  ng-click="vm.filterTicket('mine')">MyQueue</li>
+        <li class="ms-Pivot-link" ng-click="vm.filterTicket('archive')">Archive</li>
         <li class="ms-Pivot-link ms-Pivot-link--overflow"><i class="ms-Pivot-ellipsis ms-Icon ms-Icon--ellipsis"></i></li>
     </ul>
     <script>$(".ms-Pivot").Pivot();</script>
@@ -54,6 +55,12 @@
         </div>
         <hr class="thin bg-grayLighter">
         <script>$(".ms-ListItem").ListItem();</script>
+        
+        <input type="search" id="searchref" style="width:100%;" ng-init="vm.searchrefiners='refiners=\'Rank,DocId,UniqueId,Title,Size,Path,Description,PictureThumbnailURL,ServerRedirectedURL,ServerRedirectedPreviewURL,FileExtension,ViewsLifeTime,ViewsRecent,SiteName,IsDocument,FileType,SPWebUrl,\''" ng-model="vm.searchrefiners" />
+        <input type="search" id="searchdocs" style="width:100%;" ng-init="vm.searchDocuments='filetype:dotx filetype:docx contentclass:STS_ListItem_DocumentLibrary'" ng-model="vm.searchDocuments"  /><button ng-click="vm.searchDocs()" type="button">Search</button>
+        <div id="search-res">
+            This is search
+        </div>
 <!-- 
         <div class="ms-ListItem is-unread is-selectable">
             <a href="#ticket/{{request.ID}}">

@@ -74,6 +74,11 @@
                 Body: vm.response.Body,
                 RequestId: vm.ticket.Id
             }
+
+            if (isRequestStatusChanged()) {
+                responseData.RequestStatus = vm.ticket.newRequestStatus;
+            }
+
             $SPHttp.post({
                 url: apiBase + "web/lists/getByTitle('Response')/Items",
                 data: responseData
@@ -122,6 +127,9 @@
 
         }
 
+        function isRequestStatusChanged() {
+            return (!!vm.ticket.newRequestStatus) && vm.ticket.newRequestStatus !== vm.ticket.RequestStatus
+        }
         function loadRequest(ticket) {
             $SPService.list
                 .getItems("Request", "ID,Title,RequestType,RequestStatus,Body,Created,AssignedTo/Title,AssignedTo/Id,AssignedTo/Name,AssignedTo/EMail,AssignedTo/Name,Author/Id,Author/Title,Author/Name,Author/EMail&$expand=AssignedTo,Author", "Id eq " + $routeParams.id)
@@ -189,5 +197,11 @@
 
         $interval(function () { vm.currentDate = new Date(); }, 1000);
     }
+
+
+
+
+
+
 })();
 

@@ -61,6 +61,8 @@
     <Content Include="Support System\Elements.xml">
       <OpcRelationship>feature-elementmanifest</OpcRelationship>
     </Content>
+    <Content Include="Workflow\WorkflowHistoryList\Elements.xml" />
+    <Content Include="Workflow\WorkflowTaskList\Elements.xml" />
     <None Include="Content\matro-ui\fonts\metro.eot" />
     <None Include="Content\matro-ui\fonts\metro.ttf" />
     <None Include="Content\matro-ui\fonts\metro.woff" />
@@ -152,7 +154,9 @@
     <Content Include="Data\Response\ResponseInstance\Elements.xml" />
     <Content Include="Data\Response\Schema.xml" />
     <Content Include="Data\SiteColumns\Body\Elements.xml" />
-    <Content Include="Data\SiteColumns\RequestStatus\Elements.xml" />
+    <Content Include="Data\SiteColumns\RequestStatus\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Data\SiteColumns\RequestType\Elements.xml" />
     <Content Include="Elements.xml" />
     <Content Include="Features\Feature2\Feature2.Template.xml">
@@ -170,6 +174,15 @@
     </None>
     <None Include="Support System\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{1f8b98ab-2c40-4eb7-9df6-475235ae9ce1}</SharePointProjectItemId>
+    </None>
+    <None Include="Workflow\WorkflowHistoryList\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{4b48765f-fdc0-424b-9ddc-ecb771be327e}</SharePointProjectItemId>
+    </None>
+    <None Include="Workflow\WorkflowTaskList\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{97c7d7aa-724c-4ca7-9443-348446496ac4}</SharePointProjectItemId>
+    </None>
+    <None Include="Workflow\RequestStatusChanges\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{7b94aebd-8cd6-4734-9e99-98944bc07069}</SharePointProjectItemId>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -236,7 +249,26 @@
       <SubType>Designer</SubType>
     </AppManifestFile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <XamlAppDef Include="Workflow\RequestStatusChanges\Workflow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Activities, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Activities.Design, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SharePoint.DesignTime.Activities.16.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
